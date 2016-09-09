@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    android:id="@+id/coordinator"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+<ScrollView
+   android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:id="@+id/scrollview">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <RelativeLayout
+            android:id="@+id/profile_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/header_cover_image"
+            android:background="@color/colorPrimary"
+            android:elevation="4dp"
+            android:paddingBottom="24dp">
+
+
+            <ImageView
+                android:id="@+id/add_friend"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_toLeftOf="@+id/more"
+                android:src="@mipmap/ic_send" />
+
+            <Spinner
+                android:id="@+id/more"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="16dp"
+                android:backgroundTint="@color/white"
+                android:dropDownWidth="120dp"
+                android:background="@mipmap/ic_more_vert_black_24dp" />
+
+            <TextView
+                android:id="@+id/nombre_grupo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="76dp"
+                android:text="Nombre Grupo"
+                android:textColor="#fff"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/direccion_grupo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/nombre_grupo"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="12dp"
+                android:text="Dirección de Grupo"
+                android:textColor="#fff"
+                android:textSize="14sp" />
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/profile_layout"
+            android:layout_marginTop="5dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:padding="15dp"
+                    android:text="Líderes:"
+                    android:drawableStart="@mipmap/ic_group_black_24dp"
+                    android:drawableLeft="@mipmap/ic_group_black_24dp"
+                    android:drawablePadding="5dp"
+                    android:singleLine="true"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="@color/cardview_dark_background" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:padding="15dp"
+                    android:text="Direccion Calle 52 con 60"
+                    android:id="@+id/direccion"
+                    android:layout_gravity="center_vertical"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:padding="15dp"
+                    android:text="Dias Grupo:"
+                    android:drawableLeft="@mipmap/ic_event_black_24dp"
+                    android:drawablePadding="5dp"
+                    android:singleLine="true"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="@color/cardview_dark_background" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:padding="15dp"
+                    android:text="Lunes"
+                    android:id="@+id/diagrupo"
+                    android:layout_gravity="center_vertical" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:padding="15dp"
+                    android:id="@+id/diagrupo_post"
+                    android:layout_gravity="center_vertical"
+                    android:inputType="text"
+                    android:hint="Dias de grupo"
+                    android:visibility="gone"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:padding="15dp"
+                    android:text="Estado:"
+                    android:drawableLeft="@mipmap/ic_settings_black_24dp"
+                    android:drawablePadding="5dp"
+                    android:singleLine="true"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="@color/cardview_dark_background"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:padding="15dp"
+                    android:text="Lideres:"
+                    android:id="@+id/lideres"
+                    android:layout_gravity="center_vertical"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+</ScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+    android:id="@+id/button_send"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    android:layout_margin="16dp"
+    android:clickable="true"
+    app:elevation="16dp"
+    app:backgroundTint="@color/buttonColor"
+    app:layout_anchorGravity="end|bottom"
+    app:layout_anchor="@id/scrollview"
+    android:src="@mipmap/ic_done_white_18dp"
+    android:visibility="gone"/>
+
+</android.support.design.widget.CoordinatorLayout>

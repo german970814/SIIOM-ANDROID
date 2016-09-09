@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Siiom</string>
+    <string name="aceptar_button">Aceptar</string>
+    <string name="contraseña">Contraseña</string>
+    <string name="email">E-mail</string>
+    <string name="action_settings">Settings</string>
+    <string name="salir">Salir</string>
+    <string-array name="brew_array">
+        <item>Editar</item>
+        <item>Listar</item>
+        <item>Borrar</item>
+    </string-array>
+</resources>
