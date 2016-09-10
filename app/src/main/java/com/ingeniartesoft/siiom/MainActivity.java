@@ -76,29 +76,6 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getIntent();
         ID_MIEMBRO = intent.getIntExtra("MIEMBRO_ID", 1);
 
-        // Se inicializan todos los datos y componentes de el layout
-//        nombre_miembro_header = (TextView) findViewById(R.id.user_profile_name);
-//        biografia = (TextView) findViewById(R.id.user_profile_short_bio);
-//        lideres = (TextView) findViewById(R.id.lideres);
-//
-//        direccion = (TextView) findViewById(R.id.direccion);
-//        cedula = (TextView) findViewById(R.id.cedula);
-//        nombre_miembro = (TextView) findViewById(R.id.nombre_miembro);
-//        primer_apellido = (TextView) findViewById(R.id.primer_apellido);
-//        segundo_apellido = (TextView) findViewById(R.id.segundo_apellido);
-//        telefono = (TextView) findViewById(R.id.telefono);
-//        email = (TextView) findViewById(R.id.email);
-//
-//        nombre_miembro_post = (EditText) findViewById(R.id.nombre_miembro_post);
-//        cedula_post = (EditText) findViewById(R.id.cedula_post);
-//        telefono_post = (EditText) findViewById(R.id.telefono_post);
-//        email_post = (EditText) findViewById(R.id.email_post);
-//        primer_apellido_post = (EditText) findViewById(R.id.primer_apellido_post);
-//        segundo_apellido_post = (EditText) findViewById(R.id.segundo_apellido_post);
-//        direccion_post = (EditText) findViewById(R.id.direccion_post);
-//
-//        button_success = (FloatingActionButton) findViewById(R.id.button_send_miembro);
-
         // Dialogos de espera
         progressDialog = ProgressDialog.show(MainActivity.this, "", "Cargando. Espera Por Favor...", true);
 
@@ -109,49 +86,14 @@ public class MainActivity extends AppCompatActivity {
 
         tabs = (SlidingTabLayout) findViewById(R.id.tabs);
         tabs.setDistributeEvenly(true);
-
         tabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer(){
             @Override
             public int getIndicatorColor(int position) {
                 return getResources().getColor(R.color.colorPrimary);
             }
         });
-
         tabs.setViewPager(pager);
 
-
-
-
-//        fecha_grupo = (TextView) findViewById(R.id.diagrupo);
-//        genero = (TextView) findViewById(R.id.genero);
-//        nombre_grupo = (TextView) findViewById(R.id.nombre_grupo);
-//        direccion_grupo = (TextView) findViewById(R.id.direccion);
-
-
-        // Button edit to edit
-        View inflatedview = getLayoutInflater().inflate(R.layout.tab1, null);
-        edit = (ImageButton) inflatedview.findViewById(R.id.editar_button);
-        edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // toggleView(edit);
-                toggleView(nombre_miembro);
-                toggleView(nombre_miembro_post);
-                toggleView(primer_apellido);
-                toggleView(primer_apellido_post);
-                toggleView(segundo_apellido);
-                toggleView(segundo_apellido_post);
-                toggleView(cedula);
-                toggleView(cedula_post);
-                toggleView(telefono);
-                toggleView(telefono_post);
-                toggleView(email);
-                toggleView(email_post);
-                toggleView(direccion);
-                toggleView(direccion_post);
-                toggleView(button_success);
-            }
-        });
     }
 
     @Override
@@ -207,86 +149,78 @@ public class MainActivity extends AppCompatActivity {
                 Fragment f = fragments.get(i);
                 if (f instanceof Tab1) {
                     ((Tab1) f).setServerResponse(serverResponse, URL_BASE);
-//                    f.s //setServerResponse(serverResponse, URL_BASE);
-                     Log.d("D", "enre al for y mande la data");
                 } else if (f instanceof Tab2) {
                     ((Tab2) f).setServerResponse(serverResponse);
-                    Log.d("D", "Mande data a tab2");
                 } else {
-                    Log.d("D", "No hice nada");
+                    Log.d("D", "No se envian los datos a los fragmentos");
                 }
             }
-
-            Fragment fragment1 = getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.pager + ":" + pager.getCurrentItem());
-            if (pager.getCurrentItem() == 0 && fragment1 != null) {
-                ((Tab1) fragment1).setServerResponse(serverResponse, URL_BASE);
-                Log.d("D", "ENTRO EN EL IF CREO U PASO LA PETICION");
-            } else {
-                Log.d("D", "No entro");
-            }
-
-//            if (nombre_miembro_header != null) {
-//                nombre_miembro_header.setText("" + serverResponse.getMiembro());
-//            } else {
-//                Log.d("D", "HEADER NULL");
-//            }
-//
-//            if (biografia != null) {
-//                if (serverResponse.getGrupo_lidera().equals("true")) {
-//                    biografia.setText("Lider de el grupo " + serverResponse.getGrupo_nombre());
-//                } else {
-//                    biografia.setText("No tiene Grupo Asignado");
-//                }
-//            } else {
-//                Log.d("D", "BIOGRAFIA NULL");
-//            }
-//
-//            if (serverResponse.getDireccion() != null) {
-//                direccion.setText(serverResponse.getDireccion());
-//            } else {
-//                Log.d("D", "Aqui debe explotar");
-//                direccion.setText("SIN DATOS");
-//                Log.d("D", "Explota aqui");
-//            }
-//            Log.d("D", "No exploto aqui");
-//            if (serverResponse.getSegundo_apellido() != null) {
-//                segundo_apellido.setText(serverResponse.getSegundo_apellido());
-//            } else {
-//                segundo_apellido.setText("SIN DATOS");
-//            }
-//            if (serverResponse.getLideres() != null) {
-//                lideres.setText(serverResponse.getLideres());
-//            }
-//            cedula.setText(serverResponse.getCedula());
-//            nombre_miembro.setText(serverResponse.getMiembro());
-//            primer_apellido.setText(serverResponse.getPrimer_apellido());
-//
-//            if (serverResponse.getTelefono() != null) {
-//                telefono.setText(serverResponse.getTelefono());
-//            }
-//            if (serverResponse.getEmail_miembro() != null) {
-//                email.setText(serverResponse.getEmail_miembro());
-//            }
-//
-////            fecha_grupo.setText(get_week_day(Integer.parseInt(serverResponse.getFecha_grupo())));
-////            genero.setText(serverResponse.getGenero());
-////            nombre_grupo.setText(serverResponse.getGrupoName());
-////            direccion_grupo.setText(serverResponse.getDireccion_grupo());
-//
-//            ImageView image;
-//            image = (ImageView) findViewById(R.id.user_profile_photo);
-//            Picasso.with(this).load(URL_BASE + serverResponse.getFoto_perfil()).into(image);
-
         }
-
-
+        // Para obetener las vistas se debe hacer dentro de este metodo
         ImageView background;
-
         background = (ImageView) findViewById(R.id.header_cover_image);
         // String URL1 = "http://10.0.2.2:7000/media/media/profile_pictures/user_125/55-888.png";
         String URL2 = "/static/Imagenes/cdr.com.png";
 
         Picasso.with(this).load(URL_BASE + URL2).into(background);
+
+        edit = (ImageButton) findViewById(R.id.editar_button);
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                nombre_miembro_header = (TextView) findViewById(R.id.user_profile_name);
+                biografia = (TextView) findViewById(R.id.user_profile_short_bio);
+                lideres = (TextView) findViewById(R.id.lideres);
+
+                direccion = (TextView) findViewById(R.id.direccion);
+                cedula = (TextView) findViewById(R.id.cedula);
+                nombre_miembro = (TextView) findViewById(R.id.nombre_miembro);
+                primer_apellido = (TextView) findViewById(R.id.primer_apellido);
+                segundo_apellido = (TextView) findViewById(R.id.segundo_apellido);
+                telefono = (TextView) findViewById(R.id.telefono);
+                email = (TextView) findViewById(R.id.email_m);
+
+                nombre_miembro_post = (EditText) findViewById(R.id.nombre_miembro_post);
+                cedula_post = (EditText) findViewById(R.id.cedula_post);
+                telefono_post = (EditText) findViewById(R.id.telefono_post);
+                email_post = (EditText) findViewById(R.id.email_post);
+                primer_apellido_post = (EditText) findViewById(R.id.primer_apellido_post);
+                segundo_apellido_post = (EditText) findViewById(R.id.segundo_apellido_post);
+                direccion_post = (EditText) findViewById(R.id.direccion_post);
+                button_success = (FloatingActionButton) findViewById(R.id.button_send_miembro);
+
+                // toggleView(edit);
+                toggleView(nombre_miembro);
+                toggleView(nombre_miembro_post);
+                nombre_miembro_post.setHint(nombre_miembro.getText());
+                toggleView(primer_apellido);
+                toggleView(primer_apellido_post);
+                primer_apellido_post.setHint(primer_apellido.getText());
+                toggleView(segundo_apellido);
+                toggleView(segundo_apellido_post);
+                segundo_apellido_post.setHint(segundo_apellido.getText());
+                toggleView(cedula);
+                toggleView(cedula_post);
+                cedula_post.setHint(cedula.getText());
+                toggleView(telefono);
+                toggleView(telefono_post);
+                telefono_post.setHint(telefono.getText());
+                toggleView(email);
+                toggleView(email_post);
+                email_post.setHint(email.getText());
+                toggleView(direccion);
+                toggleView(direccion_post);
+                direccion_post.setHint(direccion.getText());
+
+                toggleView(button_success);
+
+                if (button_success.getVisibility() == View.VISIBLE) {
+                    edit.setBackgroundResource(R.mipmap.ic_close_white_24dp); // setBackground(R.mipmap.ic_close_white_24dp);
+                } else {
+                    edit.setBackgroundResource(R.mipmap.ic_create_white_24dp);
+                }
+            }
+        });
         progressDialog.dismiss();
         // information.setText("" + serverEvent.getServerResponse().getMessage());
     }
@@ -320,5 +254,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             v.setVisibility(View.VISIBLE);
         }
+        v.setAlpha(0.0f);
+        v.animate().alpha(1.0f);
     }
 }

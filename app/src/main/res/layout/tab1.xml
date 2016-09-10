@@ -29,11 +29,10 @@
             android:layout_below="@+id/header_cover_image"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="-150dp"
-            android:background="@mipmap/ic_account"
             android:elevation="5dp"
             android:padding="20dp"
             android:scaleType="centerCrop"
-            android:src="@mipmap/ic_account" />
+            android:src="@mipmap/ic_account"/>
 
         <RelativeLayout
             android:id="@+id/profile_layout"
@@ -53,7 +52,6 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginRight="16dp"
-                android:backgroundTint="@color/white"
                 android:background="@mipmap/ic_create_white_24dp" />
 
             <TextView
@@ -336,7 +334,7 @@
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
                     android:padding="15dp"
-                    android:id="@+id/email"
+                    android:id="@+id/email_m"
                     android:layout_gravity="center_vertical"/>
 
                 <EditText

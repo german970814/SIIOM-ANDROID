@@ -1,5 +1,6 @@
 package com.ingeniartesoft.siiom;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -9,6 +10,11 @@ import android.support.v4.app.FragmentStatePagerAdapter;
  * Created by german on 28/08/16.
  */
 public class ViewPageAdapter extends FragmentStatePagerAdapter {
+    private int[] icons = {
+        R.mipmap.ic_account_box_white_18dp,
+        R.mipmap.ic_add_white_24dp
+    };
+
     CharSequence Titles[];
     int NumbOfTabs;
     Bundle bundle;
