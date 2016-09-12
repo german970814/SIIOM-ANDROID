@@ -18,6 +18,7 @@ package com.ingeniartesoft.siiom.tabs;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.icu.text.DisplayContext;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
@@ -226,8 +227,10 @@ public class SlidingTabLayout extends HorizontalScrollView {
                 tabView.setSelected(true);
             }
 
-            tabTitleView.setTextColor(getResources().getColorStateList(R.color.selector));
+            tabTitleView.setTextColor(getResources().getColorStateList(R.color.colorGray));
             tabTitleView.setTextSize(14);
+
+            setTabTextSelected(tabTitleView, i == mViewPager.getCurrentItem());
         }
 
     }
@@ -309,6 +312,11 @@ public class SlidingTabLayout extends HorizontalScrollView {
             if (mViewPagerPageChangeListener != null) {
                 mViewPagerPageChangeListener.onPageSelected(position);
             }
+
+            for (int i = 0; i < mTabStrip.getChildCount(); i++) {
+                TextView textView = (TextView) mTabStrip.getChildAt(i);
+                setTabTextSelected(textView, position == i);
+            }
         }
 
     }
@@ -322,6 +330,20 @@ public class SlidingTabLayout extends HorizontalScrollView {
                     return;
                 }
             }
+        }
+    }
+
+    // new custom method
+    private void setTabTextSelected(TextView textView, boolean selected) {
+        if (selected) {
+            textView.setTextColor(getResources().getColor(R.color.white));
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+//            textView.setBackgroundResource(R.mipmap.ic_account);
+//            textView.setHeight(16);
+//            textView.setWidth(16);
+        } else {
+            textView.setTextColor(getResources().getColor(R.color.colorGray));
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13);
         }
     }
 

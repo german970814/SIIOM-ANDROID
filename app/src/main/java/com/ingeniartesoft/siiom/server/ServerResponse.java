@@ -70,8 +70,14 @@ public class ServerResponse implements Serializable {
         @SerializedName("lideres")
         private String lideres;
 
-        @SerializedName("email")
+        @SerializedName("email_miembro")
         private String email_miembro;
+
+        @SerializedName("hora_grupo")
+        private String hora_grupo;
+
+        @SerializedName("estado_grupo")
+        private String estado_grupo;
 
         // Constructor de login
         public ServerResponse(String email, String password, String message, int responseId, int responseCode) {
@@ -86,7 +92,7 @@ public class ServerResponse implements Serializable {
         public ServerResponse(String grupoName, int grupoId, String lider1,
                               String lider2, String fecha_grupo, String direccion_grupo, String grupo_lidera,
                               String miembro, String foto_perfil, String cedula, String genero, String message, int responseCode,
-                              String direccion, String email, String telefono, String lideres) {
+                              String direccion, String email, String telefono, String lideres, String hora_grupo, String estado_grupo) {
             this.grupo_nombre = grupoName;
             this.message = message;
             this.responseCode = responseCode;
@@ -104,6 +110,8 @@ public class ServerResponse implements Serializable {
             this.email_miembro = email;
             this.telefono = telefono;
             this.lideres = lideres;
+            this.hora_grupo = hora_grupo;
+            this.estado_grupo = estado_grupo;
         }
 
         public int getGrupo_id() {
@@ -186,5 +194,13 @@ public class ServerResponse implements Serializable {
 
         public String getEmail_miembro() {
             return email_miembro;
+        }
+
+        public String getHora_grupo() {
+            return hora_grupo;
+        }
+
+        public String getEstado_grupo() {
+            return estado_grupo;
         }
 }

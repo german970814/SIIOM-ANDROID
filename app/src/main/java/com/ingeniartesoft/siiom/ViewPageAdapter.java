@@ -34,9 +34,14 @@ public class ViewPageAdapter extends FragmentStatePagerAdapter {
             tab1.setArguments(bundle);
             return tab1;
         }
-        else {
+        else if (position == 1) {
             Tab2 tab2 = new Tab2();
+            tab2.setArguments(bundle);
             return tab2;
+        } else {
+            Tab3 tab3 = new Tab3();
+            tab3.setArguments(bundle);
+            return tab3;
         }
     }
 

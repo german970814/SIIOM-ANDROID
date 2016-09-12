@@ -7,6 +7,7 @@ import retrofit.http.Field;
 import retrofit.http.FormUrlEncoded;
 import retrofit.http.GET;
 import retrofit.http.POST;
+import retrofit.http.Path;
 import retrofit.http.Query;
 
 /**
@@ -30,7 +31,23 @@ public interface Interface {
                  Callback<ServerResponse> serverResponseCallback);
 
 
-    @GET("/miembro/")
-    void getGrupo(@Query("id_miembro") int id,
+    @GET("/miembro/{id_miembro}")
+    void getGrupo(@Path("id_miembro") int id,
                   Callback<ServerResponse> serverResponseCallback);
+
+    @FormUrlEncoded
+    @POST("/editar_miembro/{id_miembro}")
+    void editarMiembroPost(@Path("id_miembro") int id, @Field("nombre") String nombre,
+                           @Field("email") String email, @Field("primer_apellido") String primer_apellido,
+                           @Field("segundo_apellido") String segundo_apellido, @Field("direccion") String direccion,
+                           @Field("telefono") String telefono, @Field("cedula") String cedula,
+                           Callback<ServerResponse> serverResponseCallback);
+
+    @FormUrlEncoded
+    @POST("/editar_grupo/{id_miembro}")
+    void editarGrupoPost(@Path("id_miembro") int id,
+                         @Field("direccion") String direccion,
+                         @Field("dia") String dia, @Field("hora") String hora,
+                         Callback<ServerResponse> serverResponseCallback);
+
 }

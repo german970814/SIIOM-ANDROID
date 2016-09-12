@@ -1,5 +1,6 @@
 package com.ingeniartesoft.siiom;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
@@ -9,6 +10,7 @@ import android.support.v7.widget.CardView;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -70,6 +72,24 @@ public class SecondActivity extends AppCompatActivity {
             }
         });
 
+        passwordET.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (!b) {
+                    hideKeyboard(view);
+                }
+            }
+        });
+
+        emailET.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (!b) {
+                    hideKeyboard(view);
+                }
+            }
+        });
+
         information = (TextView) findViewById(R.id.information);
     }
 
@@ -113,6 +133,11 @@ public class SecondActivity extends AppCompatActivity {
         progressBar.setVisibility(View.GONE);
         card.setVisibility(View.VISIBLE);
         loginButtonPost.setVisibility(View.VISIBLE);
+    }
+
+    public void hideKeyboard(View view) {
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
 }

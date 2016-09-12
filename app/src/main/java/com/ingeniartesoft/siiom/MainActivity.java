@@ -1,5 +1,6 @@
 package com.ingeniartesoft.siiom;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.media.Image;
@@ -14,7 +15,10 @@ import android.text.Selection;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -34,33 +38,25 @@ import com.ingeniartesoft.siiom.tabs.SlidingTabLayout;
 import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Picasso;
 
+import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     // Private Variables
     private Communicator communicator;
-//    private TextView nombre_miembro, shortbio, direccion, fecha_grupo, lideres, cedula, genero, nombre_grupo, direccion_grupo;
-    private TextView nombre_miembro_header, nombre_miembro, primer_apellido,
-            segundo_apellido, telefono, direccion, cedula,
-            email, lideres, biografia;
-    private EditText nombre_miembro_post,  primer_apellido_post, segundo_apellido_post, telefono_post, direccion_post, email_post, cedula_post;
-    private FloatingActionButton button_success;
     private ProgressDialog progressDialog;
 
     // Constants
     static final String URL_BASE = "http://10.0.2.2:7000";
     static int ID_MIEMBRO;
 
-    // Various
-    ImageButton edit;
-
     // Pager
     ViewPageAdapter adapter;
     ViewPager pager;
     SlidingTabLayout tabs;
-    CharSequence Titles[] = {"Perfil", "Grupo"};
-    int Notabs = 2; // Titles.length; // 2;
+    CharSequence Titles[] = {"Perfil", "Grupo", "Discipulos"};
+    int Notabs = Titles.length; // 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         ID_MIEMBRO = intent.getIntExtra("MIEMBRO_ID", 1);
 
         // Dialogos de espera
-        progressDialog = ProgressDialog.show(MainActivity.this, "", "Cargando. Espera Por Favor...", true);
+        //progressDialog = ProgressDialog.show(MainActivity.this, "", "Cargando. Espera Por Favor...", true);
 
         // Adapter for pages
         adapter = new ViewPageAdapter(getSupportFragmentManager(), Titles, Notabs, ID_MIEMBRO);
@@ -89,11 +85,10 @@ public class MainActivity extends AppCompatActivity {
         tabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer(){
             @Override
             public int getIndicatorColor(int position) {
-                return getResources().getColor(R.color.colorPrimary);
+                return getResources().getColor(R.color.buttonColor);
             }
         });
         tabs.setViewPager(pager);
-
     }
 
     @Override
@@ -131,16 +126,12 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    // public void useGet(int id_grupo) {
-        // communicator.getGrupo(id_grupo);
-    // }
-
 
     // when has received a request or response from server
     @Subscribe
     public void onServerEvent(ServerEvent serverEvent) {
         // Toast.makeText(this, "" + serverEvent.getServerResponse().getMessage(), Toast.LENGTH_SHORT).show();
-
+        setupUI(findViewById(R.id.parent_main));
         if (serverEvent.getServerResponse().getResponseId() == 0) {
             ServerResponse serverResponse = serverEvent.getServerResponse();
 
@@ -156,72 +147,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
-        // Para obetener las vistas se debe hacer dentro de este metodo
-        ImageView background;
-        background = (ImageView) findViewById(R.id.header_cover_image);
-        // String URL1 = "http://10.0.2.2:7000/media/media/profile_pictures/user_125/55-888.png";
-        String URL2 = "/static/Imagenes/cdr.com.png";
-
-        Picasso.with(this).load(URL_BASE + URL2).into(background);
-
-        edit = (ImageButton) findViewById(R.id.editar_button);
-        edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                nombre_miembro_header = (TextView) findViewById(R.id.user_profile_name);
-                biografia = (TextView) findViewById(R.id.user_profile_short_bio);
-                lideres = (TextView) findViewById(R.id.lideres);
-
-                direccion = (TextView) findViewById(R.id.direccion);
-                cedula = (TextView) findViewById(R.id.cedula);
-                nombre_miembro = (TextView) findViewById(R.id.nombre_miembro);
-                primer_apellido = (TextView) findViewById(R.id.primer_apellido);
-                segundo_apellido = (TextView) findViewById(R.id.segundo_apellido);
-                telefono = (TextView) findViewById(R.id.telefono);
-                email = (TextView) findViewById(R.id.email_m);
-
-                nombre_miembro_post = (EditText) findViewById(R.id.nombre_miembro_post);
-                cedula_post = (EditText) findViewById(R.id.cedula_post);
-                telefono_post = (EditText) findViewById(R.id.telefono_post);
-                email_post = (EditText) findViewById(R.id.email_post);
-                primer_apellido_post = (EditText) findViewById(R.id.primer_apellido_post);
-                segundo_apellido_post = (EditText) findViewById(R.id.segundo_apellido_post);
-                direccion_post = (EditText) findViewById(R.id.direccion_post);
-                button_success = (FloatingActionButton) findViewById(R.id.button_send_miembro);
-
-                // toggleView(edit);
-                toggleView(nombre_miembro);
-                toggleView(nombre_miembro_post);
-                nombre_miembro_post.setHint(nombre_miembro.getText());
-                toggleView(primer_apellido);
-                toggleView(primer_apellido_post);
-                primer_apellido_post.setHint(primer_apellido.getText());
-                toggleView(segundo_apellido);
-                toggleView(segundo_apellido_post);
-                segundo_apellido_post.setHint(segundo_apellido.getText());
-                toggleView(cedula);
-                toggleView(cedula_post);
-                cedula_post.setHint(cedula.getText());
-                toggleView(telefono);
-                toggleView(telefono_post);
-                telefono_post.setHint(telefono.getText());
-                toggleView(email);
-                toggleView(email_post);
-                email_post.setHint(email.getText());
-                toggleView(direccion);
-                toggleView(direccion_post);
-                direccion_post.setHint(direccion.getText());
-
-                toggleView(button_success);
-
-                if (button_success.getVisibility() == View.VISIBLE) {
-                    edit.setBackgroundResource(R.mipmap.ic_close_white_24dp); // setBackground(R.mipmap.ic_close_white_24dp);
-                } else {
-                    edit.setBackgroundResource(R.mipmap.ic_create_white_24dp);
-                }
-            }
-        });
-        progressDialog.dismiss();
+        // progressDialog.dismiss();
         // information.setText("" + serverEvent.getServerResponse().getMessage());
     }
 
@@ -229,6 +155,20 @@ public class MainActivity extends AppCompatActivity {
     @Subscribe
     public void onErrorEvent(ErrorEvent errorEvent) {
         Toast.makeText(this, "" + errorEvent.getErrorMsg(), Toast.LENGTH_SHORT).show();
+
+        if (errorEvent.getErrorCode() != 0) {
+            List<Fragment> fragments = getSupportFragmentManager().getFragments();
+            for (int i=0; i < fragments.size(); i++) {
+                Fragment f = fragments.get(i);
+                if (f instanceof Tab1) {
+                    ((Tab1) f).setServerError(errorEvent);
+                } else if (f instanceof Tab2) {
+                    ((Tab2) f).setServerError(errorEvent);
+                } else {
+                    Log.d("D", "No se envian los datos a los fragmentos");
+                }
+            }
+        }
     }
 
     // static methods
@@ -256,5 +196,30 @@ public class MainActivity extends AppCompatActivity {
         }
         v.setAlpha(0.0f);
         v.animate().alpha(1.0f);
+    }
+
+    public void hideSoftKeyboard(View view) {
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    public void setupUI (View view) {
+        if ((view instanceof EditText)) {
+            view.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View view, boolean b) {
+                    if (!b) {
+                        hideSoftKeyboard(view);
+                    }
+                }
+            });
+        }
+
+        if (view instanceof ViewGroup) {
+            for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
+                View innerView = ((ViewGroup) view).getChildAt(i);
+                setupUI(innerView);
+            }
+        }
     }
 }

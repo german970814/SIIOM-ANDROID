@@ -110,6 +110,72 @@ public class Communicator {
 
     }
 
+    public void editarMiembroPOST(int id, String nombre,
+                                  String email, String primer_apellido,
+                                  String segundo_apellido, String direccion,
+                                  String telefono, String cedula) {
+        RestAdapter restAdapter = new RestAdapter.Builder()
+                .setEndpoint(SERVER_URL)
+                .setLogLevel(RestAdapter.LogLevel.FULL)
+                .build();
+
+        Interface communicatorInterface = restAdapter.create(Interface.class);
+        Callback<ServerResponse> callback = new Callback<ServerResponse>() {
+            @Override
+            public void success(ServerResponse serverResponse, Response response) {
+                if (serverResponse.getResponseCode() == 0) {
+                    BusProvider.getInstance().post(produceServerEvent(serverResponse));
+                } else {
+                    BusProvider.getInstance().post(produceErrorEvent(serverResponse.getResponseCode(), serverResponse.getMessage()));
+                }
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                if (error != null) {
+                    Log.e(TAG, error.getMessage());
+                    error.printStackTrace();
+                }
+                BusProvider.getInstance().post(produceErrorEvent(-200, error.getMessage()));
+            }
+        };
+
+        communicatorInterface.editarMiembroPost(
+                id, nombre, email, primer_apellido,
+                segundo_apellido, direccion, telefono, cedula, callback
+        );
+    }
+
+    public void editarGrupoPost(int id, String direccion, String dia, String hora) {
+        RestAdapter restAdapter = new RestAdapter.Builder()
+                .setEndpoint(SERVER_URL)
+                .setLogLevel(RestAdapter.LogLevel.FULL)
+                .build();
+
+        Interface communicatorInterface = restAdapter.create(Interface.class);
+        Callback<ServerResponse> callback = new Callback<ServerResponse>() {
+            @Override
+            public void success(ServerResponse serverResponse, Response response) {
+                if (serverResponse.getResponseCode() == 0) {
+                    BusProvider.getInstance().post(produceServerEvent(serverResponse));
+                } else {
+                    BusProvider.getInstance().post(produceErrorEvent(serverResponse.getResponseCode(), serverResponse.getMessage()));
+                }
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                if (error != null) {
+                    Log.e(TAG, error.getMessage());
+                    error.printStackTrace();
+                }
+                BusProvider.getInstance().post(produceErrorEvent(-200, error.getMessage()));
+            }
+        };
+
+        communicatorInterface.editarGrupoPost(id, direccion, dia, hora, callback);
+    }
+
     @Produce
     public ServerEvent produceServerEvent(ServerResponse serverResponse) {
         return new ServerEvent(serverResponse);
