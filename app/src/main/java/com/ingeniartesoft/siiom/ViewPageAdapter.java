@@ -1,6 +1,5 @@
 package com.ingeniartesoft.siiom;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -30,16 +29,16 @@ public class ViewPageAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         if (position == 0) {
-            Tab1 tab1 = new Tab1();
+            MiembroFragment tab1 = new MiembroFragment();
             tab1.setArguments(bundle);
             return tab1;
         }
         else if (position == 1) {
-            Tab2 tab2 = new Tab2();
-            tab2.setArguments(bundle);
-            return tab2;
+            GrupoFragment grupoFragment = new GrupoFragment();
+            grupoFragment.setArguments(bundle);
+            return grupoFragment;
         } else {
-            Tab3 tab3 = new Tab3();
+            DiscipulosFragment tab3 = new DiscipulosFragment();
             tab3.setArguments(bundle);
             return tab3;
         }

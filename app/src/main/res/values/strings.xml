@@ -1,10 +1,26 @@
 <resources>
-    <string name="app_name">Siiom</string>
+    <string name="app_name">SIIOM</string>
     <string name="aceptar_button">Aceptar</string>
     <string name="contraseña">Contraseña</string>
     <string name="email">E-mail</string>
     <string name="action_settings">Settings</string>
     <string name="salir">Salir</string>
+    <string name="liders_text">Líderes:</string>
+    <string name="dias_grupo">Días Grupo:</string>
+    <string name="direccion_grupo">Dirección Grupo:</string>
+    <string name="hora_grupo">Hora Grupo:</string>
+    <string name="estado_grupo">Estado:</string>
+    <string name="nombre">Nombre:</string>
+    <string name="primer_apellido_miembro">Primer Apellido:</string>
+    <string name="segundo_apellido_miembro">Segundo Apellido:</string>
+    <string name="telefono">Telefono:</string>
+    <string name="cedula_miembro">Cedula:</string>
+    <string name="direccion_miembro">Dirección:</string>
+    <string name="email_miembro">Email:</string>
+    <string name="lideres_miembro">Líderes:</string>
+    <string name="tab_miembro">Miembro</string>
+    <string name="tab_grupo">Grupo</string>
+    <string name="tab_discipulos">Discipulos</string>
     <string-array name="brew_array">
         <item>Editar</item>
         <item>Listar</item>

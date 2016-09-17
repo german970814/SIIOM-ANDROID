@@ -1,10 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#2196F3</color>
-    <color name="colorPrimaryDark">#047bda</color>
-    <color name="colorAccent">#2196F3</color>
+    <!--colorTheme-->
+    <color name="colorPrimary">#03A9F4</color>
+    <color name="colorPrimaryDark">#0288D1</color>
+    <color name="colorAccent">#FF5252</color>
+    <color name="colorPrimaryLigth">#B3E5FC</color>
+    <color name="colorTextIcons">#FFFFFF</color>
+    <color name="colorPrimaryText">#212121</color>
+    <color name="colorSecondaryText">#757575</color>
+    <color name="colorDivider">#BDBDBD</color>
+    <!--endColorTheme-->
+
+    <!--Custom colors-->
     <color name="buttonColor">#f12121</color>
     <color name="white">#EEEFFF</color>
     <color name="colorGray">#a7a0a7</color>
     <color name="red_transparency">#d3f12121</color>
+    <color name="amber">#FFA000</color>
+    <color name="error">#FF5252</color>
+    <color name="success">#4CAF50</color>
 </resources>

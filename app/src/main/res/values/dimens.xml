@@ -5,4 +5,8 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="wrap">@dimen/custom_wrap_content</dimen>
+    <dimen name="text_size_login">20sp</dimen>
+    <dimen name="padding_textinputlayout_login">40dp</dimen>
+    <dimen name="radius_background_login_forgot_password">8dp</dimen>
+    <dimen name="bottombar_height">70dp</dimen>
 </resources>

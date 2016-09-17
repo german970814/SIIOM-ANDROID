@@ -1,4 +1,4 @@
-package com.ingeniartesoft.siiom.iu;
+package com.ingeniartesoft.siiom.ui;
 
 import android.content.Context;
 import android.graphics.Rect;

@@ -3,43 +3,31 @@ package com.ingeniartesoft.siiom;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.media.Image;
-import android.support.design.widget.FloatingActionButton;
+import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.SlidingPaneLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.text.Selection;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
-import android.view.Window;
 
 import com.ingeniartesoft.siiom.commucator.Communicator;
-import com.ingeniartesoft.siiom.models.Grupo;
-import com.ingeniartesoft.siiom.models.User;
 import com.ingeniartesoft.siiom.server.ErrorEvent;
 import com.ingeniartesoft.siiom.server.ServerEvent;
 import com.ingeniartesoft.siiom.server.ServerResponse;
 import com.ingeniartesoft.siiom.tabs.SlidingTabLayout;
+import com.roughike.bottombar.BottomBar;
+import com.roughike.bottombar.OnTabSelectListener;
 import com.squareup.otto.Subscribe;
-import com.squareup.picasso.Picasso;
 
-import java.security.PublicKey;
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -59,14 +47,14 @@ public class MainActivity extends AppCompatActivity {
     int Notabs = Titles.length; // 2;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // Set the content
         setContentView(R.layout.activity_main);
         // set toolbar
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
-        setSupportActionBar(toolbar);
+//        final Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
+//        setSupportActionBar(toolbar);
 
         // get sended data from intent
         Intent intent = getIntent();
@@ -76,19 +64,52 @@ public class MainActivity extends AppCompatActivity {
         //progressDialog = ProgressDialog.show(MainActivity.this, "", "Cargando. Espera Por Favor...", true);
 
         // Adapter for pages
-        adapter = new ViewPageAdapter(getSupportFragmentManager(), Titles, Notabs, ID_MIEMBRO);
-        pager = (ViewPager) findViewById(R.id.pager);
-        pager.setAdapter(adapter);
+//        adapter = new ViewPageAdapter(getSupportFragmentManager(), Titles, Notabs, ID_MIEMBRO);
+//        pager = (ViewPager) findViewById(R.id.pager);
+//        pager.setAdapter(adapter);
+//
+//        tabs = (SlidingTabLayout) findViewById(R.id.tabs);
+//        tabs.setDistributeEvenly(true);
+//        tabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer(){
+//            @Override
+//            public int getIndicatorColor(int position) {
+//                return getResources().getColor(R.color.buttonColor);
+//            }
+//        });
+//        tabs.setViewPager(pager);
 
-        tabs = (SlidingTabLayout) findViewById(R.id.tabs);
-        tabs.setDistributeEvenly(true);
-        tabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer(){
+        BottomBar bottomBar = (BottomBar) findViewById(R.id.bottombar);
+        bottomBar.setDefaultTab(R.id.tab_miembro);
+        final Bundle bundle = new Bundle();
+        bundle.putInt("ID_MIEMBRO", ID_MIEMBRO);
+        bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
-            public int getIndicatorColor(int position) {
-                return getResources().getColor(R.color.buttonColor);
+            public void onTabSelected(@IdRes int tabId) {
+                switch (tabId) {
+                    case R.id.tab_miembro:
+                        MiembroFragment miembroFragment = new MiembroFragment();
+                        miembroFragment.setArguments(bundle);
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, miembroFragment)
+                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                            .addToBackStack(null).commit();
+                        break;
+                    case R.id.tab_grupo:
+                        GrupoFragment grupoFragment = new GrupoFragment();
+                        grupoFragment.setArguments(bundle);
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, grupoFragment)
+                                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                                .addToBackStack(null).commit();
+                        break;
+                    case R.id.tab_discipulos:
+                        DiscipulosFragment discipulosFragment = new DiscipulosFragment();
+                        discipulosFragment.setArguments(bundle);
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, discipulosFragment)
+                                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                                .addToBackStack(null).commit();
+                        break;
+                }
             }
         });
-        tabs.setViewPager(pager);
     }
 
     @Override
@@ -138,10 +159,10 @@ public class MainActivity extends AppCompatActivity {
             List<Fragment> fragments = getSupportFragmentManager().getFragments();
             for (int i=0; i < fragments.size(); i++) {
                 Fragment f = fragments.get(i);
-                if (f instanceof Tab1) {
-                    ((Tab1) f).setServerResponse(serverResponse, URL_BASE);
-                } else if (f instanceof Tab2) {
-                    ((Tab2) f).setServerResponse(serverResponse);
+                if (f instanceof MiembroFragment) {
+                    ((MiembroFragment) f).setServerResponse(serverResponse, URL_BASE);
+                } else if (f instanceof GrupoFragment) {
+                    ((GrupoFragment) f).setServerResponse(serverResponse);
                 } else {
                     Log.d("D", "No se envian los datos a los fragmentos");
                 }
@@ -160,10 +181,10 @@ public class MainActivity extends AppCompatActivity {
             List<Fragment> fragments = getSupportFragmentManager().getFragments();
             for (int i=0; i < fragments.size(); i++) {
                 Fragment f = fragments.get(i);
-                if (f instanceof Tab1) {
-                    ((Tab1) f).setServerError(errorEvent);
-                } else if (f instanceof Tab2) {
-                    ((Tab2) f).setServerError(errorEvent);
+                if (f instanceof MiembroFragment) {
+                    ((MiembroFragment) f).setServerError(errorEvent);
+                } else if (f instanceof GrupoFragment) {
+                    ((GrupoFragment) f).setServerError(errorEvent);
                 } else {
                     Log.d("D", "No se envian los datos a los fragmentos");
                 }
@@ -184,7 +205,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void salir() {
-        Intent intent = new Intent(this, SecondActivity.class);
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
 

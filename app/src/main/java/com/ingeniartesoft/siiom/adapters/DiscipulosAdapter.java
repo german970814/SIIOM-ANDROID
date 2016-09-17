@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.ingeniartesoft.siiom.R;
 import com.ingeniartesoft.siiom.models.Discipulo;
+import com.ingeniartesoft.siiom.ui.Constants;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -73,7 +74,7 @@ public class DiscipulosAdapter extends RecyclerView.Adapter<DiscipulosAdapter.Di
         }
 
         public void setImagen_discipulo (String imagen_discipulo) {
-            Picasso.with(context).load("http://10.0.2.2:7000" + imagen_discipulo).into(this.imagen_discipulo);
+            Picasso.with(context).load(Constants.URL_BASE + imagen_discipulo).into(this.imagen_discipulo);
         }
 
         public String getNombre_discipulo () {

@@ -1,12 +1,9 @@
 package com.ingeniartesoft.siiom;
 
 
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,22 +18,27 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.ServerError;
 import com.ingeniartesoft.siiom.commucator.Communicator;
+import com.ingeniartesoft.siiom.io.ApiAdapter;
+import com.ingeniartesoft.siiom.io.models.GrupoResponse;
 import com.ingeniartesoft.siiom.server.ErrorEvent;
 import com.ingeniartesoft.siiom.server.ServerResponse;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit.Callback;
+import retrofit.RestAdapter;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+
 /**
  * Created by german on 28/08/16.
  */
-public class Tab2 extends Fragment implements AdapterView.OnItemSelectedListener {
+public class GrupoFragment extends Fragment implements AdapterView.OnItemSelectedListener, Callback<GrupoResponse> {
     Communicator communicator;
     private ErrorEvent serverError;
+    private int ID_MIEMBRO;
 
     FloatingActionButton button, button2, button3;
     Spinner diaGrupo;
@@ -49,9 +51,7 @@ public class Tab2 extends Fragment implements AdapterView.OnItemSelectedListener
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.tab2, container, false);
 
-        final int ID_MIEMBRO = getArguments().getInt("ID_MIEMBRO", 1);
-
-        communicator = new Communicator();
+        ID_MIEMBRO = getArguments().getInt("ID_MIEMBRO", 1);
 
         nombre_grupo = (TextView) v.findViewById(R.id.nombre_grupo);
         direccion_barra = (TextView) v.findViewById(R.id.direccion_grupo_barra);
@@ -84,6 +84,7 @@ public class Tab2 extends Fragment implements AdapterView.OnItemSelectedListener
         dias.add("Sabado");
         dias.add("Domingo");
 
+        // se crea adaptador para el dropdown de dias
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, dias);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         diaGrupo.setAdapter(dataAdapter);
@@ -123,15 +124,14 @@ public class Tab2 extends Fragment implements AdapterView.OnItemSelectedListener
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                serverError = null;
                 dia.setText(String.valueOf(get_number_day(diaGrupo.getSelectedItem().toString())));
-                editarGrupoPost(ID_MIEMBRO,
-                        direccion_grupo_post.getText().toString(),
-                        dia.getText().toString(),
-                        hora.getText().toString());
+                ApiAdapter.getApiService().editar_grupo(
+                        ID_MIEMBRO, dia.getText().toString(), hora_grupo_post.getText().toString(),
+                        direccion_grupo_post.getText().toString(), GrupoFragment.this
+                );
 
                 if (getServerError() == null) {
-                    communicator.getGrupo(ID_MIEMBRO);
+//                    communicator.getGrupo(ID_MIEMBRO);
                     button2.performClick();
                 }
                 button.setImageResource(R.mipmap.ic_create_white_24dp);
@@ -196,13 +196,13 @@ public class Tab2 extends Fragment implements AdapterView.OnItemSelectedListener
     }
 
     public void setServerResponse (ServerResponse serverResponse) {
-        nombre_grupo.setText(serverResponse.getGrupo_nombre());
-        direccion_barra.setText(serverResponse.getDireccion_grupo());
-        lideres_grupo.setText(serverResponse.getGrupo_lider1() + " - " + serverResponse.getGrupo_lider2());
-        direccion.setText(serverResponse.getDireccion_grupo());
-        diaGrupoText.setText(get_week_day(Integer.parseInt(serverResponse.getDia_grupo())));
-        hora.setText(serverResponse.getHora_grupo());
-        estado.setText(serverResponse.getEstado_grupo());
+//        nombre_grupo.setText(serverResponse.getGrupo_nombre());
+//        direccion_barra.setText(serverResponse.getDireccion_grupo());
+//        lideres_grupo.setText(serverResponse.getGrupo_lider1() + " - " + serverResponse.getGrupo_lider2());
+//        direccion.setText(serverResponse.getDireccion_grupo());
+//        diaGrupoText.setText(get_week_day(Integer.parseInt(serverResponse.getDia_grupo())));
+//        hora.setText(serverResponse.getHora_grupo());
+//        estado.setText(serverResponse.getEstado_grupo());
     }
 
     public void setServerError(ErrorEvent serverError) {
@@ -262,9 +262,9 @@ public class Tab2 extends Fragment implements AdapterView.OnItemSelectedListener
         return -1;
     }
 
-    private void editarGrupoPost(int id, String direccion, String dia, String hora) {
-        communicator.editarGrupoPost(id, direccion, dia, hora);
-    };
+//    private void editarGrupoPost(int id, String direccion, String dia, String hora) {
+//        communicator.editarGrupoPost(id, direccion, dia, hora);
+//    };
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -280,5 +280,28 @@ public class Tab2 extends Fragment implements AdapterView.OnItemSelectedListener
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
         // Nothing
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ApiAdapter.getApiService().get_grupo(ID_MIEMBRO, this);
+    }
+
+    @Override
+    public void success(GrupoResponse serverResponse, Response response) {
+        nombre_grupo.setText(serverResponse.getNombre());
+        direccion_barra.setText(serverResponse.getDireccion());
+        lideres_grupo.setText(serverResponse.getLider1() + " - " + serverResponse.getLider2());
+        direccion.setText(serverResponse.getDireccion());
+        diaGrupoText.setText(get_week_day(Integer.parseInt(serverResponse.getDia_grupo())));
+        hora.setText(serverResponse.getHora_grupo());
+        estado.setText(serverResponse.getEstado());
+    }
+
+    @Override
+    public void failure(RetrofitError error) {
+        Log.d("F", "Error desde el grupoFragment");
+        error.printStackTrace();
     }
 }

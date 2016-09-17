@@ -30,7 +30,7 @@ public class Communicator {
         Callback<ServerResponse> callback = new Callback<ServerResponse>() {
             @Override
             public void success(ServerResponse serverResponse, Response response) {
-                if (serverResponse.getResponseCode() == 0) {
+                if (serverResponse.getResponseCode() == 200) {
                     BusProvider.getInstance().post(produceServerEvent(serverResponse));
                 } else {
                     BusProvider.getInstance().post(produceErrorEvent(serverResponse.getResponseCode(), serverResponse.getMessage()));

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs>
+    <tab
+        id="@+id/tab_miembro"
+        title="@string/tab_miembro"
+        barColorWhenSelected="@color/colorPrimary"
+        icon="@mipmap/ic_account"/>
+
+    <tab
+        id="@+id/tab_grupo"
+        title="@string/tab_grupo"
+        barColorWhenSelected="@color/colorPrimary"
+        icon="@mipmap/ic_account_balance_white_18dp" />
+
+    <tab
+        id="@+id/tab_discipulos"
+        title="@string/tab_discipulos"
+        barColorWhenSelected="@color/colorPrimary"
+        icon="@mipmap/ic_people_white_24dp" />
+</tabs>
