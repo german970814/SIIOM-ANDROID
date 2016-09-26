@@ -15,6 +15,9 @@ public class Constants {
     public static final int ERROR = 400;
     public static final int DENIED = 403;
     public static final int SERVER_ERROR = 502;
-    public static final int NOT_FOUND = 403;
+    public static final int NOT_FOUND = 404;
+
+    // Strings
+    public static final String SIN_DATOS = "SIN DATOS";
 
 }

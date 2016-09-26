@@ -21,9 +21,14 @@
     <string name="tab_miembro">Miembro</string>
     <string name="tab_grupo">Grupo</string>
     <string name="tab_discipulos">Discipulos</string>
+    <string name="olvidar_contrasena">Olvidé mi contraseña</string>
     <string-array name="brew_array">
         <item>Editar</item>
         <item>Listar</item>
         <item>Borrar</item>
     </string-array>
+    <string name="title_activity_example_navigation_drawer">Example_navigation_drawer</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 </resources>

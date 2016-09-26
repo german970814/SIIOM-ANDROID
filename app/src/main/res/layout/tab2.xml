@@ -15,7 +15,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
 
         <RelativeLayout
@@ -24,9 +24,7 @@
             android:clickable="true"
             android:focusableInTouchMode="true"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/header_cover_image"
             android:background="@color/colorPrimaryDark"
-            android:elevation="4dp"
             android:paddingBottom="24dp">
 
 
@@ -36,6 +34,8 @@
                 android:layout_height="30dp"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="6dp"
+                android:layout_marginEnd="6dp"
+                android:layout_alignParentEnd="true"
                 android:layout_marginTop="30dp"
                 android:src="@mipmap/ic_error_outline_white_24dp" />
 
@@ -68,59 +68,102 @@
             android:layout_marginTop="5dp"
             android:orientation="vertical">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:padding="@dimen/activity_horizontal_margin"
+                >
 
-                <TextView
+                <ImageView
+                    android:id="@+id/img6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:padding="15dp"
-                    android:text="@string/liders_text"
-                    android:drawableStart="@mipmap/ic_group_black_24dp"
-                    android:drawableLeft="@mipmap/ic_group_black_24dp"
-                    android:drawablePadding="5dp"
-                    android:singleLine="true"
-                    android:layout_gravity="center_vertical"
-                    android:textColor="@color/cardview_dark_background" />
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:src="@mipmap/ic_group_black_24dp"
+                    android:clickable="true"
+                    android:focusableInTouchMode="true"/>
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:id="@+id/label_lideres_grupo"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:padding="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:layout_toEndOf="@id/img6"
+                    android:layout_toRightOf="@id/img6"
+                    android:text="@string/lideres_miembro"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textColor="#212121"/>
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_below="@id/label_lideres_grupo"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:layout_toEndOf="@id/img6"
+                    android:layout_toRightOf="@id/img6"
+                    android:text="Dummy"
                     android:id="@+id/lideres_grupo"
-                    android:layout_gravity="center_vertical"/>
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="#727272"/>
+            </RelativeLayout>
 
-            </LinearLayout>
-
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:padding="@dimen/activity_horizontal_margin"
+                >
 
-                <TextView
+                <ImageView
+                    android:id="@+id/img5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:padding="15dp"
-                    android:text="@string/dias_grupo"
-                    android:drawableLeft="@mipmap/ic_event_black_24dp"
-                    android:drawablePadding="5dp"
-                    android:singleLine="true"
-                    android:layout_gravity="center_vertical"
-                    android:textColor="@color/cardview_dark_background" />
-
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:src="@mipmap/ic_event_black_24dp"
+                    android:clickable="true"
+                    android:focusableInTouchMode="true"/>
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="5dp"
-                    android:padding="15dp"
+                    android:id="@+id/label_dia_grupo"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:layout_toEndOf="@id/img5"
+                    android:layout_toRightOf="@id/img5"
+                    android:text="@string/dias_grupo"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textColor="#212121"/>
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_below="@id/label_dia_grupo"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:layout_toEndOf="@id/img5"
+                    android:layout_toRightOf="@id/img5"
+                    android:text="Dummy"
                     android:id="@+id/diagrupo"
-                    android:layout_gravity="center_vertical" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="#727272"/>
+
+                <!--<TextView-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_margin="5dp"-->
+                    <!--android:padding="15dp"-->
+                    <!--android:id="@+id/diagrupod"-->
+                    <!--android:layout_gravity="center_vertical" />-->
 
                 <Spinner
                     android:layout_width="match_parent"
@@ -128,118 +171,263 @@
                     android:id="@+id/diagrupo_post"
                     android:padding="15dp"
                     android:layout_margin="5dp"
-                    android:layout_gravity="center_vertical"
-                    android:visibility="gone"
-                    android:layout_weight="1" />
+                    android:layout_toEndOf="@id/img5"
+                    android:layout_toRightOf="@id/img5"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:layout_below="@id/diagrupo"
+                    android:visibility="gone"/>
+
+
+                <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_margin="5dp"-->
+                <!--android:padding="15dp"-->
+                <!--android:id="@+id/diagrupod"-->
+                <!--android:layout_gravity="center_vertical" />-->
+
+                <!--<Spinner-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:id="@+id/diagrupo_post"-->
+                <!--android:padding="15dp"-->
+                <!--android:layout_margin="5dp"-->
+                <!--android:layout_gravity="center_vertical"-->
+                <!--android:layout_weight="1" />-->
 
                 <EditText
-                    android:layout_height="match_parent"
-                    android:layout_width="match_parent"
-                    android:visibility="gone"
-                    android:id="@+id/dia"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:layout_width="match_parent"
+                android:visibility="gone"
+                android:id="@+id/dia"/>
 
-                <TextView
+            </RelativeLayout>
+
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:orientation="horizontal">-->
+
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_margin="5dp"-->
+                    <!--android:padding="15dp"-->
+                    <!--android:text="@string/dias_grupo"-->
+                    <!--android:drawableLeft="@mipmap/ic_event_black_24dp"-->
+                    <!--android:drawablePadding="5dp"-->
+                    <!--android:singleLine="true"-->
+                    <!--android:layout_gravity="center_vertical"-->
+                    <!--android:textColor="@color/cardview_dark_background" />-->
+
+
+                <!--<TextView-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_margin="5dp"-->
+                    <!--android:padding="15dp"-->
+                    <!--android:id="@+id/diagrupo"-->
+                    <!--android:layout_gravity="center_vertical" />-->
+
+                <!--<Spinner-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:id="@+id/diagrupo_post"-->
+                    <!--android:padding="15dp"-->
+                    <!--android:layout_margin="5dp"-->
+                    <!--android:layout_gravity="center_vertical"-->
+                    <!--android:visibility="gone"-->
+                    <!--android:layout_weight="1" />-->
+
+                <!--<EditText-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:visibility="gone"-->
+                    <!--android:id="@+id/dia"/>-->
+
+            <!--</LinearLayout>-->
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:padding="@dimen/activity_horizontal_margin"
+                >
+
+                <ImageView
+                    android:id="@+id/img7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:padding="15dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:src="@mipmap/ic_location_on_black_24dp"
+                    android:clickable="true"
+                    android:focusableInTouchMode="true"/>
+
+                <TextView
+                    android:id="@+id/label_direccion_grupo"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:layout_toEndOf="@id/img7"
+                    android:layout_toRightOf="@id/img7"
                     android:text="@string/direccion_grupo"
-                    android:drawableLeft="@mipmap/ic_location_on_black_24dp"
-                    android:drawablePadding="5dp"
-                    android:singleLine="true"
-                    android:layout_gravity="center_vertical"
-                    android:textColor="@color/cardview_dark_background" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textColor="#212121"/>
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="5dp"
-                    android:padding="15dp"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_below="@id/label_direccion_grupo"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:layout_toEndOf="@id/img7"
+                    android:layout_toRightOf="@id/img7"
+                    android:text="Dummy"
                     android:id="@+id/direccion_grupo"
-                    android:layout_gravity="center_vertical" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="#727272"/>
 
-                <EditText
+                <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="5dp"
-                    android:padding="15dp"
-                    android:id="@+id/direccion_grupo_post"
-                    android:layout_gravity="center_vertical"
-                    android:inputType="text"
-                    android:visibility="gone"/>
+                    android:layout_height="wrap_content"
+                    android:id="@+id/direccion_grupo_layout"
+                    android:layout_toEndOf="@id/img7"
+                    android:layout_toRightOf="@id/img7"
+                    android:visibility="gone">
 
-            </LinearLayout>
+                    <android.support.design.widget.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/direccion_grupo_post"
+                        android:hint="@string/direccion_grupo"
+                        android:layout_toEndOf="@id/img7"
+                        android:layout_toRightOf="@id/img7"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:layout_marginStart="@dimen/activity_horizontal_margin"/>
 
-            <LinearLayout
+                </android.support.design.widget.TextInputLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:padding="@dimen/activity_horizontal_margin"
+                >
 
-                <TextView
+                <ImageView
+                    android:id="@+id/img8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:padding="15dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:src="@mipmap/ic_label_black_24dp"
+                    android:clickable="true"
+                    android:focusableInTouchMode="true"/>
+
+                <TextView
+                    android:id="@+id/label_hora_grupo"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:layout_toEndOf="@id/img8"
+                    android:layout_toRightOf="@id/img8"
                     android:text="@string/hora_grupo"
-                    android:drawableLeft="@mipmap/ic_book_black_24dp"
-                    android:drawablePadding="5dp"
-                    android:singleLine="true"
-                    android:layout_gravity="center_vertical"
-                    android:textColor="@color/cardview_dark_background" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textColor="#212121"/>
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="5dp"
-                    android:padding="15dp"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_below="@id/label_hora_grupo"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:layout_toEndOf="@id/img8"
+                    android:layout_toRightOf="@id/img8"
+                    android:text="Dummy"
                     android:id="@+id/hora_grupo"
-                    android:layout_gravity="center_vertical" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="#727272"/>
 
-                <EditText
+                <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="5dp"
-                    android:padding="15dp"
-                    android:id="@+id/hora_grupo_post"
-                    android:layout_gravity="center_vertical"
-                    android:inputType="time"
-                    android:visibility="gone"/>
+                    android:layout_height="wrap_content"
+                    android:id="@+id/hora_grupo_layout"
+                    android:layout_toEndOf="@id/img8"
+                    android:layout_toRightOf="@id/img8"
+                    android:visibility="gone">
 
-            </LinearLayout>
+                    <android.support.design.widget.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:inputType="time"
+                        android:id="@+id/hora_grupo_post"
+                        android:hint="@string/hora_grupo"
+                        android:layout_toEndOf="@id/img8"
+                        android:layout_toRightOf="@id/img8"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:layout_marginStart="@dimen/activity_horizontal_margin"/>
+
+                </android.support.design.widget.TextInputLayout>
+            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:padding="15dp"
-                    android:text="@string/estado_grupo"
-                    android:drawableLeft="@mipmap/ic_settings_black_24dp"
-                    android:drawablePadding="5dp"
-                    android:singleLine="true"
-                    android:layout_gravity="center_vertical"
-                    android:textColor="@color/cardview_dark_background"
-                    />
-
-                <TextView
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="5dp"
-                    android:padding="15dp"
-                    android:text="Activo"
-                    android:id="@+id/estado"
-                    android:layout_gravity="center_vertical"/>
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    >
+
+                    <ImageView
+                        android:id="@+id/img9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                        android:layout_marginRight="@dimen/activity_horizontal_margin"
+                        android:src="@mipmap/ic_visibility_black_24dp"
+                        android:clickable="true"
+                        android:focusableInTouchMode="true"/>
+
+                    <TextView
+                        android:id="@+id/label_estado_grupo"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:layout_marginStart="@dimen/activity_horizontal_margin"
+                        android:layout_toEndOf="@id/img9"
+                        android:layout_toRightOf="@id/img9"
+                        android:text="@string/estado_grupo"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="#212121"/>
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_below="@id/label_estado_grupo"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:layout_marginStart="@dimen/activity_horizontal_margin"
+                        android:layout_toEndOf="@id/img9"
+                        android:layout_toRightOf="@id/img9"
+                        android:text="Dummy"
+                        android:id="@+id/estado"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:textColor="#727272"/>
+                </RelativeLayout>
 
             </LinearLayout>
 
@@ -255,7 +443,7 @@
         android:layout_margin="16dp"
         android:clickable="true"
         app:elevation="16dp"
-        app:backgroundTint="@color/buttonColor"
+        app:backgroundTint="@color/colorAccent"
         app:layout_anchorGravity="end|bottom"
         app:layout_anchor="@id/scrollview"
         android:src="@mipmap/ic_create_white_24dp"
@@ -270,6 +458,7 @@
         app:elevation="16dp"
         app:layout_anchorGravity="end|bottom"
         app:layout_anchor="@id/scrollview"
+        app:backgroundTint="@color/success"
         android:src="@mipmap/ic_done_white_18dp"
         android:visibility="gone"/>
 
@@ -280,7 +469,7 @@
         android:layout_margin="16dp"
         android:clickable="true"
         app:elevation="16dp"
-        app:backgroundTint="@color/colorPrimaryDark"
+        app:backgroundTint="@color/amber"
         app:layout_anchorGravity="end|bottom"
         app:layout_anchor="@id/scrollview"
         android:src="@mipmap/ic_close_white_24dp"

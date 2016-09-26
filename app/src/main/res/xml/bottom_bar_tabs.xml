@@ -4,17 +4,17 @@
         id="@+id/tab_miembro"
         title="@string/tab_miembro"
         barColorWhenSelected="@color/colorPrimary"
-        icon="@mipmap/ic_account"/>
+        icon="@drawable/ic_account_box_white"/>
 
     <tab
         id="@+id/tab_grupo"
         title="@string/tab_grupo"
         barColorWhenSelected="@color/colorPrimary"
-        icon="@mipmap/ic_account_balance_white_18dp" />
+        icon="@drawable/ic_account_balance_white_18dp" />
 
     <tab
         id="@+id/tab_discipulos"
         title="@string/tab_discipulos"
         barColorWhenSelected="@color/colorPrimary"
-        icon="@mipmap/ic_people_white_24dp" />
+        icon="@drawable/ic_wc_white_24dp" />
 </tabs>

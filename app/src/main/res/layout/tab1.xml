@@ -1,421 +1,545 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <android.support.design.widget.CoordinatorLayout
-    android:id="@+id/coordinator_l"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinator_l"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:fitsSystemWindows="true">
 
-    <include
-        android:id="@+id/tool_bar"
-        layout="@layout/tool_bar" />
+    <!--<include-->
+        <!--android:id="@+id/tool_bar"-->
+        <!--layout="@layout/tool_bar" />-->
 
-    <ScrollView
-        android:layout_height="match_parent"
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:id="@+id/scrollview2">
+        android:layout_height="218dp"
+        android:fitsSystemWindows="true"
+        android:theme="@style/AppTheme"
+        android:clickable="true"
+        android:focusableInTouchMode="true">
 
-        <RelativeLayout
+        <android.support.design.widget.CollapsingToolbarLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:id="@+id/collapsing_toolbar"
+            android:fitsSystemWindows="true"
+            app:contentScrim="@color/colorPrimary"
+            app:layout_scrollFlags='scroll|exitUntilCollapsed'
+            android:minHeight="?attr/actionBarSize"
+            android:clickable="true"
+            android:focusableInTouchMode="true">
 
             <ImageView
-                android:id="@+id/header_cover_image"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:scaleType="centerCrop"
-                android:clickable="true"
-                android:focusableInTouchMode="true"
-                android:src="@mipmap/ic_account" />
-
-            <ImageButton
                 android:id="@+id/user_profile_photo"
-                android:layout_width="220dp"
-                android:layout_height="220dp"
-                android:layout_below="@+id/header_cover_image"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="-150dp"
-                android:elevation="5dp"
-                android:clickable="true"
-                android:focusableInTouchMode="true"
-                android:padding="20dp"
-                android:scaleType="centerCrop"
-                android:src="@mipmap/ic_account"/>
-
-            <RelativeLayout
-                android:id="@+id/profile_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/header_cover_image"
-                android:background="@color/colorPrimaryDark"
-                android:elevation="4dp"
+                android:adjustViewBounds="true"
+                app:layout_collapseMode="parallax"
+                app:layout_collapseParallaxMultiplier="0.7"
                 android:clickable="true"
-                android:focusableInTouchMode="true"
-                android:paddingBottom="24dp">
+                android:focusableInTouchMode="true"/>
+
+            <android.support.v7.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                android:id="@+id/actiontoolbal"
+                app:layout_scrollFlags="scroll|enterAlways"
+                android:minHeight="?attr/actionBarSize"
+                app:popupTheme="@style/AppTheme.PopupOverlay"
+                android:clickable="true"
+                android:focusableInTouchMode="true"/>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <include
+        android:id="@+id/inc"
+        layout="@layout/content_scrolling"/>
 
 
-                <ImageButton
-                    android:id="@+id/editar_button"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginRight="16dp"
-                    android:background="@mipmap/ic_create_white_24dp" />
+    <!--<ScrollView-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:id="@+id/scrollview2">-->
 
-                <TextView
-                    android:id="@+id/user_profile_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="76dp"
-                    android:clickable="true"
-                    android:focusableInTouchMode="true"
-                    android:textColor="#fff"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
+        <!--<RelativeLayout-->
+            <!--android:layout_marginTop="?attr/actionBarSize"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content">-->
 
-                <TextView
-                    android:id="@+id/user_profile_short_bio"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/user_profile_name"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="12dp"
-                    android:clickable="true"
-                    android:focusableInTouchMode="true"
-                    android:textColor="#fff"
-                    android:textSize="14sp" />
-            </RelativeLayout>
+            <!--<ImageView-->
+                <!--android:id="@+id/header_cover_image"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="200dp"-->
+                <!--android:scaleType="centerCrop"-->
+                <!--android:clickable="true"-->
+                <!--android:focusableInTouchMode="true"-->
+                <!--android:src="@mipmap/ic_account" />-->
+
+            <!--<ImageButton-->
+                <!--android:id="@+id/user_profile_photo"-->
+                <!--android:layout_width="220dp"-->
+                <!--android:layout_height="220dp"-->
+                <!--android:layout_below="@+id/header_cover_image"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:layout_marginTop="-150dp"-->
+                <!--android:elevation="5dp"-->
+                <!--android:clickable="true"-->
+                <!--android:focusableInTouchMode="true"-->
+                <!--android:padding="20dp"-->
+                <!--android:scaleType="centerCrop"-->
+                <!--android:src="@mipmap/ic_account"/>-->
+
+            <!--<RelativeLayout-->
+                <!--android:id="@+id/profile_layout"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_below="@+id/header_cover_image"-->
+                <!--android:background="@color/colorPrimaryDark"-->
+                <!--android:elevation="4dp"-->
+                <!--android:clickable="true"-->
+                <!--android:focusableInTouchMode="true"-->
+                <!--android:paddingBottom="24dp">-->
 
 
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/profile_layout"
-                android:layout_marginTop="5dp"
-                android:orientation="vertical">
+                <!--<ImageButton-->
+                    <!--android:id="@+id/editar_button"-->
+                    <!--android:layout_width="35dp"-->
+                    <!--android:layout_height="35dp"-->
+                    <!--android:layout_alignParentRight="true"-->
+                    <!--android:layout_marginLeft="16dp"-->
+                    <!--android:layout_marginTop="16dp"-->
+                    <!--android:layout_marginRight="16dp"-->
+                    <!--android:background="@mipmap/ic_create_white_24dp" />-->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                <!--<TextView-->
+                    <!--android:id="@+id/user_profile_name"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_centerHorizontal="true"-->
+                    <!--android:layout_marginTop="76dp"-->
+                    <!--android:clickable="true"-->
+                    <!--android:focusableInTouchMode="true"-->
+                    <!--android:textColor="#fff"-->
+                    <!--android:textSize="24sp"-->
+                    <!--android:textStyle="bold" />-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:padding="15dp"
-                        android:clickable="true"
-                        android:focusableInTouchMode="true"
-                        android:text="@string/nombre"
-                        android:drawableLeft="@mipmap/ic_person_black_24dp"
-                        android:drawablePadding="5dp"
-                        android:singleLine="true"
-                        android:layout_gravity="center_vertical"
-                        android:textColor="@color/cardview_dark_background" />
+                <!--<TextView-->
+                    <!--android:id="@+id/user_profile_short_bio"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_below="@+id/user_profile_name"-->
+                    <!--android:layout_centerHorizontal="true"-->
+                    <!--android:layout_marginTop="12dp"-->
+                    <!--android:clickable="true"-->
+                    <!--android:focusableInTouchMode="true"-->
+                    <!--android:textColor="#fff"-->
+                    <!--android:textSize="14sp" />-->
+            <!--</RelativeLayout>-->
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="5dp"
-                        android:padding="15dp"
-                        android:id="@+id/nombre_miembro"
-                        android:layout_gravity="center_vertical"/>
 
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="5dp"
-                        android:padding="15dp"
-                        android:id="@+id/nombre_miembro_post"
-                        android:layout_gravity="center_vertical"
-                        android:inputType="text"
-                        android:visibility="gone"/>
+            <!--<LinearLayout-->
+                <!--android:layout_width="fill_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_below="@+id/profile_layout"-->
+                <!--android:layout_marginTop="5dp"-->
+                <!--android:orientation="vertical">-->
 
-                </LinearLayout>
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:orientation="horizontal">-->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_margin="5dp"-->
+                        <!--android:padding="15dp"-->
+                        <!--android:clickable="true"-->
+                        <!--android:focusableInTouchMode="true"-->
+                        <!--android:text="@string/nombre"-->
+                        <!--android:drawableLeft="@mipmap/ic_person_black_24dp"-->
+                        <!--android:drawablePadding="5dp"-->
+                        <!--android:singleLine="true"-->
+                        <!--android:layout_gravity="center_vertical"-->
+                        <!--android:textColor="@color/cardview_dark_background" />-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:padding="15dp"
-                        android:clickable="true"
-                        android:focusableInTouchMode="true"
-                        android:text="@string/primer_apellido_miembro"
-                        android:drawableLeft="@mipmap/ic_person_black_24dp"
-                        android:drawablePadding="5dp"
-                        android:singleLine="true"
-                        android:layout_gravity="center_vertical"
-                        android:textColor="@color/cardview_dark_background" />
+                    <!--<TextView-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:layout_margin="5dp"-->
+                        <!--android:padding="15dp"-->
+                        <!--android:id="@+id/nombre_miembro"-->
+                        <!--android:layout_gravity="center_vertical"/>-->
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="5dp"
-                        android:padding="15dp"
-                        android:id="@+id/primer_apellido"
-                        android:layout_gravity="center_vertical"/>
+                    <!--<EditText-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:layout_margin="5dp"-->
+                        <!--android:padding="15dp"-->
+                        <!--android:id="@+id/nombre_miembro_post"-->
+                        <!--android:layout_gravity="center_vertical"-->
+                        <!--android:inputType="text"-->
+                        <!--android:visibility="gone"/>-->
 
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="5dp"
-                        android:padding="15dp"
-                        android:id="@+id/primer_apellido_post"
-                        android:layout_gravity="center_vertical"
-                        android:inputType="text"
-                        android:visibility="gone"/>
+                <!--</LinearLayout>-->
 
-                </LinearLayout>
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent">-->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    <!--<ImageView-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:src="@mipmap/ic_create_black_24dp"/>-->
+                <!--</LinearLayout>-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:padding="15dp"
-                        android:clickable="true"
-                        android:focusableInTouchMode="true"
-                        android:text="@string/segundo_apellido_miembro"
-                        android:drawableLeft="@mipmap/ic_person_black_24dp"
-                        android:drawablePadding="5dp"
-                        android:singleLine="true"
-                        android:layout_gravity="center_vertical"
-                        android:textColor="@color/cardview_dark_background" />
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:orientation="horizontal">-->
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:padding="15dp"
-                        android:id="@+id/segundo_apellido"
-                        android:layout_gravity="center_vertical"/>
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_margin="5dp"-->
+                        <!--android:padding="15dp"-->
+                        <!--android:clickable="true"-->
+                        <!--android:focusableInTouchMode="true"-->
+                        <!--android:text="@string/primer_apellido_miembro"-->
+                        <!--android:drawableLeft="@mipmap/ic_person_black_24dp"-->
+                        <!--android:drawablePadding="5dp"-->
+                        <!--android:singleLine="true"-->
+                        <!--android:layout_gravity="center_vertical"-->
+                        <!--android:textColor="@color/cardview_dark_background" />-->
 
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="5dp"
-                        android:padding="15dp"
-                        android:id="@+id/segundo_apellido_post"
-                        android:layout_gravity="center_vertical"
-                        android:inputType="text"
-                        android:visibility="gone"/>
+                    <!--<TextView-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:layout_margin="5dp"-->
+                        <!--android:padding="15dp"-->
+                        <!--android:id="@+id/primer_apellido"-->
+                        <!--android:layout_gravity="center_vertical"/>-->
 
-                </LinearLayout>
+                    <!--<EditText-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:layout_margin="5dp"-->
+                        <!--android:padding="15dp"-->
+                        <!--android:id="@+id/primer_apellido_post"-->
+                        <!--android:layout_gravity="center_vertical"-->
+                        <!--android:inputType="text"-->
+                        <!--android:visibility="gone"/>-->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                <!--</LinearLayout>-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:padding="15dp"
-                        android:clickable="true"
-                        android:focusableInTouchMode="true"
-                        android:text="@string/telefono"
-                        android:drawableLeft="@mipmap/ic_phone_android_black_24dp"
-                        android:drawablePadding="5dp"
-                        android:singleLine="true"
-                        android:layout_gravity="center_vertical"
-                        android:textColor="@color/cardview_dark_background" />
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:orientation="horizontal">-->
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="5dp"
-                        android:padding="15dp"
-                        android:id="@+id/telefono"
-                        android:layout_gravity="center_vertical"/>
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_margin="5dp"-->
+                        <!--android:padding="15dp"-->
+                        <!--android:clickable="true"-->
+                        <!--android:focusableInTouchMode="true"-->
+                        <!--android:text="@string/segundo_apellido_miembro"-->
+                        <!--android:drawableLeft="@mipmap/ic_person_black_24dp"-->
+                        <!--android:drawablePadding="5dp"-->
+                        <!--android:singleLine="true"-->
+                        <!--android:layout_gravity="center_vertical"-->
+                        <!--android:textColor="@color/cardview_dark_background" />-->
 
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="5dp"
-                        android:padding="15dp"
-                        android:id="@+id/telefono_post"
-                        android:layout_gravity="center_vertical"
-                        android:inputType="text"
-                        android:visibility="gone"/>
+                    <!--<TextView-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_margin="5dp"-->
+                        <!--android:padding="15dp"-->
+                        <!--android:id="@+id/segundo_apellido"-->
+                        <!--android:layout_gravity="center_vertical"/>-->
 
-                </LinearLayout>
+                    <!--<EditText-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:layout_margin="5dp"-->
+                        <!--android:padding="15dp"-->
+                        <!--android:id="@+id/segundo_apellido_post"-->
+                        <!--android:layout_gravity="center_vertical"-->
+                        <!--android:inputType="text"-->
+                        <!--android:visibility="gone"/>-->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                <!--</LinearLayout>-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:padding="15dp"
-                        android:clickable="true"
-                        android:focusableInTouchMode="true"
-                        android:text="@string/cedula_miembro"
-                        android:drawableLeft="@mipmap/ic_credit_card_black_24dp"
-                        android:drawablePadding="5dp"
-                        android:singleLine="true"
-                        android:layout_gravity="center_vertical"
-                        android:textColor="@color/cardview_dark_background" />
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:orientation="horizontal">-->
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="5dp"
-                        android:padding="15dp"
-                        android:id="@+id/cedula"
-                        android:layout_gravity="center_vertical"/>
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_margin="5dp"-->
+                        <!--android:padding="15dp"-->
+                        <!--android:clickable="true"-->
+                        <!--android:focusableInTouchMode="true"-->
+                        <!--android:text="@string/telefono"-->
+                        <!--android:drawableLeft="@mipmap/ic_phone_android_black_24dp"-->
+                        <!--android:drawablePadding="5dp"-->
+                        <!--android:singleLine="true"-->
+                        <!--android:layout_gravity="center_vertical"-->
+                        <!--android:textColor="@color/cardview_dark_background" />-->
 
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="5dp"
-                        android:padding="15dp"
-                        android:id="@+id/cedula_post"
-                        android:layout_gravity="center_vertical"
-                        android:inputType="text"
-                        android:hint="Cedula"
-                        android:visibility="gone"/>
+                    <!--<TextView-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:layout_margin="5dp"-->
+                        <!--android:padding="15dp"-->
+                        <!--android:id="@+id/telefono"-->
+                        <!--android:layout_gravity="center_vertical"/>-->
 
-                </LinearLayout>
+                    <!--<EditText-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:layout_margin="5dp"-->
+                        <!--android:padding="15dp"-->
+                        <!--android:id="@+id/telefono_post"-->
+                        <!--android:layout_gravity="center_vertical"-->
+                        <!--android:inputType="text"-->
+                        <!--android:visibility="gone"/>-->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                <!--</LinearLayout>-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:padding="15dp"
-                        android:clickable="true"
-                        android:focusableInTouchMode="true"
-                        android:text="@string/direccion_miembro"
-                        android:drawableLeft="@mipmap/ic_location_on_black_24dp"
-                        android:drawablePadding="5dp"
-                        android:singleLine="true"
-                        android:layout_gravity="center_vertical"
-                        android:textColor="@color/cardview_dark_background" />
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:orientation="horizontal">-->
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="5dp"
-                        android:padding="15dp"
-                        android:id="@+id/direccion"
-                        android:layout_gravity="center_vertical"/>
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_margin="5dp"-->
+                        <!--android:padding="15dp"-->
+                        <!--android:clickable="true"-->
+                        <!--android:focusableInTouchMode="true"-->
+                        <!--android:text="@string/cedula_miembro"-->
+                        <!--android:drawableLeft="@mipmap/ic_credit_card_black_24dp"-->
+                        <!--android:drawablePadding="5dp"-->
+                        <!--android:singleLine="true"-->
+                        <!--android:layout_gravity="center_vertical"-->
+                        <!--android:textColor="@color/cardview_dark_background" />-->
 
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="5dp"
-                        android:padding="15dp"
-                        android:id="@+id/direccion_post"
-                        android:layout_gravity="center_vertical"
-                        android:inputType="text"
-                        android:visibility="gone"/>
+                    <!--<TextView-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:layout_margin="5dp"-->
+                        <!--android:padding="15dp"-->
+                        <!--android:id="@+id/cedula"-->
+                        <!--android:layout_gravity="center_vertical"/>-->
 
-                </LinearLayout>
+                    <!--<EditText-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:layout_margin="5dp"-->
+                        <!--android:padding="15dp"-->
+                        <!--android:id="@+id/cedula_post"-->
+                        <!--android:layout_gravity="center_vertical"-->
+                        <!--android:inputType="text"-->
+                        <!--android:hint="Cedula"-->
+                        <!--android:visibility="gone"/>-->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                <!--</LinearLayout>-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:padding="15dp"
-                        android:text="@string/email_miembro"
-                        android:clickable="true"
-                        android:focusableInTouchMode="true"
-                        android:drawableLeft="@mipmap/ic_email_black_24dp"
-                        android:drawablePadding="5dp"
-                        android:singleLine="true"
-                        android:layout_gravity="center_vertical"
-                        android:textColor="@color/cardview_dark_background" />
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:orientation="horizontal">-->
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="5dp"
-                        android:padding="15dp"
-                        android:id="@+id/email_m"
-                        android:layout_gravity="center_vertical"/>
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_margin="5dp"-->
+                        <!--android:padding="15dp"-->
+                        <!--android:clickable="true"-->
+                        <!--android:focusableInTouchMode="true"-->
+                        <!--android:text="@string/direccion_miembro"-->
+                        <!--android:drawableLeft="@mipmap/ic_location_on_black_24dp"-->
+                        <!--android:drawablePadding="5dp"-->
+                        <!--android:singleLine="true"-->
+                        <!--android:layout_gravity="center_vertical"-->
+                        <!--android:textColor="@color/cardview_dark_background" />-->
 
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="5dp"
-                        android:padding="15dp"
-                        android:id="@+id/email_post"
-                        android:layout_gravity="center_vertical"
-                        android:inputType="textEmailAddress"
-                        android:visibility="gone"/>
+                    <!--<TextView-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:layout_margin="5dp"-->
+                        <!--android:padding="15dp"-->
+                        <!--android:id="@+id/direccion"-->
+                        <!--android:layout_gravity="center_vertical"/>-->
 
-                </LinearLayout>
+                    <!--<EditText-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:layout_margin="5dp"-->
+                        <!--android:padding="15dp"-->
+                        <!--android:id="@+id/direccion_post"-->
+                        <!--android:layout_gravity="center_vertical"-->
+                        <!--android:inputType="text"-->
+                        <!--android:visibility="gone"/>-->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <!--NO hacer coia de este blocque desde el LINEARLAYOUT-->
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:padding="15dp"
-                        android:clickable="true"
-                        android:focusableInTouchMode="true"
-                        android:text="@string/lideres_miembro"
-                        android:drawableLeft="@mipmap/ic_group_black_24dp"
-                        android:drawablePadding="5dp"
-                        android:singleLine="true"
-                        android:layout_gravity="center_vertical"
-                        android:textColor="@color/cardview_dark_background" />
+                <!--</LinearLayout>-->
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:padding="15dp"
-                        android:id="@+id/lideres"
-                        android:layout_gravity="center_vertical"/>
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:orientation="horizontal">-->
 
-                </LinearLayout>
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_margin="5dp"-->
+                        <!--android:padding="15dp"-->
+                        <!--android:text="@string/email_miembro"-->
+                        <!--android:clickable="true"-->
+                        <!--android:focusableInTouchMode="true"-->
+                        <!--android:drawableLeft="@mipmap/ic_email_black_24dp"-->
+                        <!--android:drawablePadding="5dp"-->
+                        <!--android:singleLine="true"-->
+                        <!--android:layout_gravity="center_vertical"-->
+                        <!--android:textColor="@color/cardview_dark_background" />-->
 
-            </LinearLayout>
-        </RelativeLayout>
-    </ScrollView>
-<android.support.design.widget.FloatingActionButton
-    android:id="@+id/button_send_miembro"
-    android:layout_height="wrap_content"
-    android:layout_width="wrap_content"
-    android:layout_margin="16dp"
-    android:clickable="true"
-    app:elevation="16dp"
-    app:backgroundTint="@color/buttonColor"
-    app:layout_anchorGravity="end|bottom"
-    app:layout_anchor="@id/scrollview2"
-    android:src="@mipmap/ic_done_white_18dp"
-    android:visibility="gone"/>
+                    <!--<TextView-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:layout_margin="5dp"-->
+                        <!--android:padding="15dp"-->
+                        <!--android:id="@+id/email_m"-->
+                        <!--android:layout_gravity="center_vertical"/>-->
+
+                    <!--<EditText-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:layout_margin="5dp"-->
+                        <!--android:padding="15dp"-->
+                        <!--android:id="@+id/email_post"-->
+                        <!--android:layout_gravity="center_vertical"-->
+                        <!--android:inputType="textEmailAddress"-->
+                        <!--android:visibility="gone"/>-->
+
+                <!--</LinearLayout>-->
+
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:orientation="horizontal">-->
+                    <!--&lt;!&ndash;NO hacer coia de este blocque desde el LINEARLAYOUT&ndash;&gt;-->
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_margin="5dp"-->
+                        <!--android:padding="15dp"-->
+                        <!--android:clickable="true"-->
+                        <!--android:focusableInTouchMode="true"-->
+                        <!--android:text="@string/lideres_miembro"-->
+                        <!--android:drawableLeft="@mipmap/ic_group_black_24dp"-->
+                        <!--android:drawablePadding="5dp"-->
+                        <!--android:singleLine="true"-->
+                        <!--android:layout_gravity="center_vertical"-->
+                        <!--android:textColor="@color/cardview_dark_background" />-->
+
+                    <!--<TextView-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_margin="5dp"-->
+                        <!--android:padding="15dp"-->
+                        <!--android:id="@+id/lideres"-->
+                        <!--android:layout_gravity="center_vertical"/>-->
+
+                <!--</LinearLayout>-->
+
+            <!--</LinearLayout>-->
+        <!--</RelativeLayout>-->
+    <!--</ScrollView>-->
+
+
+<!--<android.support.design.widget.FloatingActionButton-->
+    <!--android:id="@+id/button_send_miembro"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_margin="16dp"-->
+    <!--android:clickable="true"-->
+    <!--app:elevation="16dp"-->
+    <!--app:backgroundTint="@color/buttonColor"-->
+    <!--app:layout_anchorGravity="end|bottom"-->
+    <!--app:layout_anchor="@id/scrollview2"-->
+    <!--android:src="@mipmap/ic_done_white_18dp"-->
+    <!--android:visibility="gone"/>-->
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/transparency"
+        android:visibility="gone"
+        android:id="@+id/wrapper_button"
+        android:clickable="true"
+        android:focusableInTouchMode="true"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button_edit_1"
+        android:src="@mipmap/ic_edit_white_24dp"
+        app:layout_anchor="@id/app_bar"
+        app:backgroundTint="@color/colorAccent"
+        app:layout_anchorGravity="bottom|end"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:clickable="true"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/button_edit_2"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:clickable="true"
+        app:elevation="16dp"
+        app:layout_anchorGravity="end|bottom"
+        app:backgroundTint="@color/colorAccent"
+        app:layout_anchor="@id/inc"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:src="@mipmap/ic_edit_white_24dp"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/button_edit_3"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:clickable="true"
+        app:elevation="16dp"
+        app:layout_anchorGravity="end|bottom"
+        app:backgroundTint="@color/success"
+        app:layout_anchor="@id/inc"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:src="@mipmap/ic_check_white_24dp"
+        android:visibility="gone"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/button_edit_4"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:clickable="true"
+        app:elevation="16dp"
+        app:layout_anchorGravity="end|bottom"
+        app:backgroundTint="@color/amber"
+        app:layout_anchor="@id/inc"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:src="@mipmap/ic_close_white_24dp"
+        android:visibility="gone"/>
 
 
     <ProgressBar
@@ -423,6 +547,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:indeterminate="true"
+        android:visibility="gone"
         android:id="@+id/progress_tab1"/>
 
 </android.support.design.widget.CoordinatorLayout>

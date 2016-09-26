@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -30,17 +31,23 @@ import com.ingeniartesoft.siiom.ui.Constants;
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 
+import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 public class LoginActivity extends AppCompatActivity implements Callback<LoginResponse> {
 
+    private static final String EMAIL_REGEX = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
+    private Pattern pattern = Pattern.compile(EMAIL_REGEX, Pattern.CASE_INSENSITIVE);
+
     private String email, password;
     private EditText emailET, passwordET;
-    private Button loginButtonGet;
     private FloatingActionButton loginButtonPost;
-    private TextView information, extraiformation;
+    private TextInputLayout email_layout, password_layout;
     private final static String TAG = "LoginActivity";
     ProgressDialog progressDialog;
 
@@ -62,18 +69,29 @@ public class LoginActivity extends AppCompatActivity implements Callback<LoginRe
         passwordET.setTransformationMethod(new PasswordTransformationMethod());
 
         loginButtonPost = (FloatingActionButton) findViewById(R.id.button_login);
+
+        email_layout = (TextInputLayout) findViewById(R.id.email_layout);
+        password_layout = (TextInputLayout) findViewById(R.id.password_layout);
+
         loginButtonPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 email = emailET.getText().toString();
                 password = passwordET.getText().toString();
-                ApiAdapter.getApiService().login(email, password, LoginActivity.this);
+                if (validateEmail(email)) {
+                    ApiAdapter.getApiService().login(email, password, LoginActivity.this);
+
+                    progressBar.setVisibility(View.VISIBLE);
+                    card.setVisibility(View.GONE);
+                    loginButtonPost.setVisibility(View.GONE);
+                    email_layout.setErrorEnabled(false);
+                } else {
+                    email_layout.setError("Asegurate de colocar un correo");
+                }
                 // usePost(email, password);
                 // progressDialog = ProgressDialog.show(LoginActivity.this, "", "Espera por favor...", true);
                 // progressDialog.setIndeterminate(true);
-                progressBar.setVisibility(View.VISIBLE);
-                card.setVisibility(View.GONE);
-                loginButtonPost.setVisibility(View.GONE);
+
             }
         });
 
@@ -95,7 +113,6 @@ public class LoginActivity extends AppCompatActivity implements Callback<LoginRe
             }
         });
 
-        information = (TextView) findViewById(R.id.information);
     }
 
 
@@ -111,6 +128,10 @@ public class LoginActivity extends AppCompatActivity implements Callback<LoginRe
         BusProvider.getInstance().unregister(this);
     }
 
+    public boolean validateEmail(String email) {
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
 //    @Subscribe
 //    public void onServerEvent(ServerEvent serverEvent) {
 //        Toast.makeText(this, "" + serverEvent.getServerResponse().getMessage(), Toast.LENGTH_SHORT).show();
@@ -147,11 +168,33 @@ public class LoginActivity extends AppCompatActivity implements Callback<LoginRe
             Intent intent = new Intent(this, MainActivity.class);
             intent.putExtra("MIEMBRO_ID", serverResponse.getID_MIEMBRO());
             startActivity(intent);
+        } else if (serverResponse.getResponse_code() == Constants.ERROR || serverResponse.getResponse_code() == Constants.DENIED) {
+            Toast.makeText(this, "" + serverResponse.getMessage(), Toast.LENGTH_LONG).show();
+
+            if (serverResponse.getError_fields() != null) {
+                ArrayList<String> error_fields = serverResponse.getError_fields();
+
+                if (error_fields.contains("email")) {
+                    email_layout.setError("No hay email");
+                } else {
+                    email_layout.setErrorEnabled(false);
+                }
+
+                if (error_fields.contains("password")) {
+                    password_layout.setError("No hay contraseña");
+                } else {
+                    password_layout.setErrorEnabled(false);
+                }
+            }
+
+            progressBar.setVisibility(View.GONE);
+            card.setVisibility(View.VISIBLE);
+            loginButtonPost.setVisibility(View.VISIBLE);
         } else {
-            Toast.makeText(this, "" + serverResponse.getMessage(), Toast.LENGTH_SHORT).show();
-            progressBar.setVisibility(View.VISIBLE);
-            card.setVisibility(View.GONE);
-            loginButtonPost.setVisibility(View.GONE);
+            Toast.makeText(this, "Ha hecho una peticion incorrecta", Toast.LENGTH_SHORT).show();
+            progressBar.setVisibility(View.GONE);
+            card.setVisibility(View.VISIBLE);
+            loginButtonPost.setVisibility(View.VISIBLE);
         }
     }
 
@@ -159,5 +202,8 @@ public class LoginActivity extends AppCompatActivity implements Callback<LoginRe
     public void failure(RetrofitError error) {
         Log.d("E", "error desde retrofit en miembro");
         error.printStackTrace();
+        progressBar.setVisibility(View.GONE);
+        card.setVisibility(View.VISIBLE);
+        loginButtonPost.setVisibility(View.VISIBLE);
     }
 }

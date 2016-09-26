@@ -3,6 +3,7 @@ package com.ingeniartesoft.siiom.adapters;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,12 +21,14 @@ import java.util.ArrayList;
  * Created by german on 13/09/16.
  */
 public class DiscipulosAdapter extends RecyclerView.Adapter<DiscipulosAdapter.DiscipulosViewHolder> {
-    Context context;
-    ArrayList<Discipulo> discipulos;
+    private Context context;
+    private ArrayList<Discipulo> discipulos;
+    private ArrayList<Discipulo> _discipulos;
 
     public DiscipulosAdapter (Context context) {
         this.context = context;
         this.discipulos = new ArrayList<>();
+        this._discipulos = new ArrayList<>();
     }
 
     @Override
@@ -53,7 +56,28 @@ public class DiscipulosAdapter extends RecyclerView.Adapter<DiscipulosAdapter.Di
             throw new NullPointerException("The items cannot be null");
         }
         this.discipulos.addAll(discipulos);
+        if (this._discipulos.isEmpty()) {
+            this._discipulos.addAll(discipulos);
+        }
 //        notifyItemRangeInserted(getItemCount() - 1, discipulos.size());
+        notifyDataSetChanged();
+    }
+
+    public void filter(String text){
+        this.discipulos.clear();
+        if (text.isEmpty()) {
+            addAll(_discipulos);
+        } else {
+            text = text.toLowerCase();
+            ArrayList<Discipulo> recursive = new ArrayList<>();
+            for (Discipulo discipulo: _discipulos) {
+                Log.d("F", discipulo.getNombre());
+                if (discipulo.getNombre().toLowerCase().contains(text)) {
+                    recursive.add(discipulo);
+                }
+            }
+            addAll(recursive);
+        }
         notifyDataSetChanged();
     }
 

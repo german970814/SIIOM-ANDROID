@@ -52,9 +52,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Set the content
         setContentView(R.layout.activity_main);
-        // set toolbar
-//        final Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
-//        setSupportActionBar(toolbar);
 
         // get sended data from intent
         Intent intent = getIntent();
@@ -80,8 +77,10 @@ public class MainActivity extends AppCompatActivity {
 
         BottomBar bottomBar = (BottomBar) findViewById(R.id.bottombar);
         bottomBar.setDefaultTab(R.id.tab_miembro);
+
         final Bundle bundle = new Bundle();
         bundle.putInt("ID_MIEMBRO", ID_MIEMBRO);
+
         bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelected(@IdRes int tabId) {
@@ -125,72 +124,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // for menu methods
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        // useGet(1);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        if (id == R.id.action_exit) {
-            salir();
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-
-    // when has received a request or response from server
-    @Subscribe
-    public void onServerEvent(ServerEvent serverEvent) {
-        // Toast.makeText(this, "" + serverEvent.getServerResponse().getMessage(), Toast.LENGTH_SHORT).show();
-        setupUI(findViewById(R.id.parent_main));
-        if (serverEvent.getServerResponse().getResponseId() == 0) {
-            ServerResponse serverResponse = serverEvent.getServerResponse();
-
-            List<Fragment> fragments = getSupportFragmentManager().getFragments();
-            for (int i=0; i < fragments.size(); i++) {
-                Fragment f = fragments.get(i);
-                if (f instanceof MiembroFragment) {
-                    ((MiembroFragment) f).setServerResponse(serverResponse, URL_BASE);
-                } else if (f instanceof GrupoFragment) {
-                    ((GrupoFragment) f).setServerResponse(serverResponse);
-                } else {
-                    Log.d("D", "No se envian los datos a los fragmentos");
-                }
-            }
-        }
-        // progressDialog.dismiss();
-        // information.setText("" + serverEvent.getServerResponse().getMessage());
-    }
-
-    // when received response is an error
-    @Subscribe
-    public void onErrorEvent(ErrorEvent errorEvent) {
-        Toast.makeText(this, "" + errorEvent.getErrorMsg(), Toast.LENGTH_SHORT).show();
-
-        if (errorEvent.getErrorCode() != 0) {
-            List<Fragment> fragments = getSupportFragmentManager().getFragments();
-            for (int i=0; i < fragments.size(); i++) {
-                Fragment f = fragments.get(i);
-                if (f instanceof MiembroFragment) {
-                    ((MiembroFragment) f).setServerError(errorEvent);
-                } else if (f instanceof GrupoFragment) {
-                    ((GrupoFragment) f).setServerError(errorEvent);
-                } else {
-                    Log.d("D", "No se envian los datos a los fragmentos");
-                }
-            }
-        }
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.menu_main, menu);
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        int id = item.getItemId();
+//
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
+//
+//        if (id == R.id.action_exit) {
+//            salir();
+//        }
+//
+//        return super.onOptionsItemSelected(item);
+//    }
 
     // static methods
     static public String get_week_day (int day) {
@@ -207,16 +160,6 @@ public class MainActivity extends AppCompatActivity {
     public void salir() {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
-    }
-
-    public static void toggleView (View v) {
-        if (v.getVisibility() == View.VISIBLE) {
-            v.setVisibility(View.GONE);
-        } else {
-            v.setVisibility(View.VISIBLE);
-        }
-        v.setAlpha(0.0f);
-        v.animate().alpha(1.0f);
     }
 
     public void hideSoftKeyboard(View view) {

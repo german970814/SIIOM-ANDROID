@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by german on 14/09/16.
  */
-public class GrupoResponse {
+public class GrupoResponse extends ResponseCodeMixing {
     @SerializedName("nombre")
     private String nombre;
 
@@ -27,7 +27,8 @@ public class GrupoResponse {
     @SerializedName("estado")
     private String estado;
 
-    public GrupoResponse(String estado, String hora_grupo, String dia_grupo, String lider2, String lider1, String direccion, String nombre) {
+    public GrupoResponse(String estado, String hora_grupo, String dia_grupo, String lider2, String lider1, String direccion, String nombre, int responseCode) {
+        super(responseCode);
         this.estado = estado;
         this.hora_grupo = hora_grupo;
         this.dia_grupo = dia_grupo;
@@ -35,6 +36,10 @@ public class GrupoResponse {
         this.lider1 = lider1;
         this.direccion = direccion;
         this.nombre = nombre;
+    }
+
+    public GrupoResponse(int responseCode, String message) {
+        super(responseCode, message);
     }
 
     public String getNombre() {

@@ -14,9 +14,10 @@
     <!--Custom colors-->
     <color name="buttonColor">#f12121</color>
     <color name="white">#EEEFFF</color>
-    <color name="colorGray">#a7a0a7</color>
+    <color name="colorGray">#dcd9dc</color>
     <color name="red_transparency">#d3f12121</color>
     <color name="amber">#FFA000</color>
     <color name="error">#FF5252</color>
     <color name="success">#4CAF50</color>
+    <color name="transparency">#dbecf4ed</color>
 </resources>

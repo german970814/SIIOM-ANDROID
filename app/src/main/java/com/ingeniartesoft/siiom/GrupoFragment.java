@@ -1,14 +1,18 @@
 package com.ingeniartesoft.siiom;
 
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -18,11 +22,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ingeniartesoft.siiom.commucator.Communicator;
 import com.ingeniartesoft.siiom.io.ApiAdapter;
 import com.ingeniartesoft.siiom.io.models.GrupoResponse;
-import com.ingeniartesoft.siiom.server.ErrorEvent;
 import com.ingeniartesoft.siiom.server.ServerResponse;
+import com.ingeniartesoft.siiom.ui.Constants;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,45 +41,91 @@ import retrofit.client.Response;
  * Created by german on 28/08/16.
  */
 public class GrupoFragment extends Fragment implements AdapterView.OnItemSelectedListener, Callback<GrupoResponse> {
-    Communicator communicator;
-    private ErrorEvent serverError;
     private int ID_MIEMBRO;
 
-    FloatingActionButton button, button2, button3;
-    Spinner diaGrupo;
-    EditText hora_grupo_post, direccion_grupo_post, dia;
-    TextView diaGrupoText, nombre_grupo, direccion_barra, lideres_grupo, estado, direccion, hora;
+    // botones
+    private FloatingActionButton button, button2, button3;
 
-    ProgressBar progressBar;
-    ScrollView scrollView;
+    // spinner
+    private Spinner diaGrupo;
+
+    // forms
+    private TextInputLayout fHoraGrupo, fDireccionGrupo;
+    private EditText fDiaGrupo;
+
+    // textsviews dinamicos
+    private TextView nLideres, nDiasGrupo, nDireccionGrupo, nHora, nEstado, nNombreGrupo, nDireccionGrupoBarra;
+
+    // textsviews estaticos
+    private TextView lDireccionGrupo, lHoraGrupo;
+
+    // se crea un formulario con los edittexts
+    private List<EditText> form = new ArrayList<EditText>();
+
+//    private EditText hora_grupo_post, direccion_grupo_post, dia;
+//    private TextView diaGrupoText, nombre_grupo, direccion_barra, lideres_grupo, estado, direccion, hora;
+
+    private ProgressBar progressBar;
+    private ScrollView scrollView;
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.tab2, container, false);
 
         ID_MIEMBRO = getArguments().getInt("ID_MIEMBRO", 1);
 
-        nombre_grupo = (TextView) v.findViewById(R.id.nombre_grupo);
-        direccion_barra = (TextView) v.findViewById(R.id.direccion_grupo_barra);
+        // se sacan las vistas de texto
+        nLideres = (TextView) v.findViewById(R.id.lideres_grupo);
+        nDiasGrupo = (TextView) v.findViewById(R.id.diagrupo);
+        nDireccionGrupo = (TextView) v.findViewById(R.id.direccion_grupo);
+        nEstado = (TextView) v.findViewById(R.id.estado);
+        nHora = (TextView) v.findViewById(R.id.hora_grupo);
+        nNombreGrupo = (TextView) v.findViewById(R.id.nombre_grupo);
+        nDireccionGrupoBarra = (TextView) v.findViewById(R.id.direccion_grupo_barra);
+
+        // se sacan las vistas de formulario
+        fHoraGrupo = (TextInputLayout) v.findViewById(R.id.hora_grupo_layout);
+        fDireccionGrupo = (TextInputLayout) v.findViewById(R.id.direccion_grupo_layout);
+        fDiaGrupo = (EditText) v.findViewById(R.id.dia);
+
+        // se crea el spinner
+        diaGrupo = (Spinner) v.findViewById(R.id.diagrupo_post);
+
+        // se agregan a un formulario
+        form.add(fDiaGrupo);
+        form.add(fDireccionGrupo.getEditText());
+        form.add(fHoraGrupo.getEditText());
+
+        // se crean la progressbar y el scrollview
+        progressBar = (ProgressBar) v.findViewById(R.id.progress_tab2);
+        progressBar.setIndeterminate(true);
+        scrollView = (ScrollView) v.findViewById(R.id.scrollview);
+
+        // se crean los botones
         button = (FloatingActionButton) v.findViewById(R.id.button_send);
         button2 = (FloatingActionButton) v.findViewById(R.id.button_send2);
         button3 = (FloatingActionButton) v.findViewById(R.id.button_send3);
 
-        diaGrupo = (Spinner) v.findViewById(R.id.diagrupo_post);
-        diaGrupoText = (TextView) v.findViewById(R.id.diagrupo);
-        lideres_grupo = (TextView) v.findViewById(R.id.lideres_grupo);
-        estado = (TextView) v.findViewById(R.id.estado);
-        hora = (TextView) v.findViewById(R.id.hora_grupo);
-        hora_grupo_post = (EditText) v.findViewById(R.id.hora_grupo_post);
-        direccion = (TextView) v.findViewById(R.id.direccion_grupo);
-        direccion_grupo_post = (EditText) v.findViewById(R.id.direccion_grupo_post);
-        dia = (EditText) v.findViewById(R.id.dia);
+        // se crean las TextsViews Estaticas
+        lHoraGrupo = (TextView) v.findViewById(R.id.label_hora_grupo);
+        lDireccionGrupo = (TextView) v.findViewById(R.id.label_direccion_grupo);
 
-        progressBar = (ProgressBar) v.findViewById(R.id.progress_tab2);
-        progressBar.setVisibility(View.VISIBLE);
-        progressBar.setIndeterminate(true);
-        scrollView = (ScrollView) v.findViewById(R.id.scrollview);
-        scrollView.setVisibility(View.GONE);
 
+//        nombre_grupo = (TextView) v.findViewById(R.id.nombre_grupo);
+//        direccion_barra = (TextView) v.findViewById(R.id.direccion_grupo_barra);
+
+//
+//        diaGrupo = (Spinner) v.findViewById(R.id.diagrupo_post);
+//        diaGrupoText = (TextView) v.findViewById(R.id.diagrupo);
+//        lideres_grupo = (TextView) v.findViewById(R.id.lideres_grupo);
+//        estado = (TextView) v.findViewById(R.id.estado);
+//        hora = (TextView) v.findViewById(R.id.hora_grupo);
+//        hora_grupo_post = (EditText) v.findViewById(R.id.hora_grupo_post);
+//        direccion = (TextView) v.findViewById(R.id.direccion_grupo);
+//        direccion_grupo_post = (EditText) v.findViewById(R.id.direccion_grupo_post);
+//        dia = (EditText) v.findViewById(R.id.dia);
+
+        // se creaa una lista de dias como opciones para el spinner
         List<String> dias = new ArrayList<String>();
         dias.add("Lunes");
         dias.add("Martes");
@@ -88,23 +139,24 @@ public class GrupoFragment extends Fragment implements AdapterView.OnItemSelecte
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, dias);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         diaGrupo.setAdapter(dataAdapter);
-
-        scrollView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (button2.getVisibility() == View.VISIBLE) {
-                    scrollView.setAlpha(0.2f);
-                    scrollView.animate().alpha(1.0f);
-                    button3.animate().translationY(0.0f);
-                    button3.setVisibility(View.GONE);
-                    button.setBackgroundResource(R.mipmap.ic_create_white_24dp);
-                }
-            }
-        });
-
+//
+//        scrollView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if (button2.getVisibility() == View.VISIBLE) {
+//                    scrollView.setAlpha(0.2f);
+//                    scrollView.animate().alpha(1.0f);
+//                    button3.animate().translationY(0.0f);
+//                    button3.setVisibility(View.GONE);
+//                    button.setBackgroundResource(R.mipmap.ic_create_white_24dp);
+//                }
+//            }
+//        });
+//
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                hideKeyboard(view);
                 scrollView.setAlpha(0.2f);
                 scrollView.animate().alpha(1.0f);
                 button3.animate().translationY(0.0f);
@@ -112,64 +164,84 @@ public class GrupoFragment extends Fragment implements AdapterView.OnItemSelecte
                 button2.animate().translationY(0.0f);
                 button2.setVisibility(View.GONE);
                 button.setImageResource(R.mipmap.ic_create_white_24dp);
-                toggleView(direccion);
-                toggleView(direccion_grupo_post);
+
+                toggleView(nDireccionGrupo);
+                toggleView(fDireccionGrupo);
+                toggleView(lDireccionGrupo);
                 toggleView(diaGrupo);
-                toggleView(diaGrupoText);
-                toggleView(hora);
-                toggleView(hora_grupo_post);
+                toggleView(nDiasGrupo);
+                toggleView(nHora);
+                toggleView(lHoraGrupo);
+                toggleView(fHoraGrupo);
             }
         });
-
+//
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dia.setText(String.valueOf(get_number_day(diaGrupo.getSelectedItem().toString())));
-                ApiAdapter.getApiService().editar_grupo(
-                        ID_MIEMBRO, dia.getText().toString(), hora_grupo_post.getText().toString(),
-                        direccion_grupo_post.getText().toString(), GrupoFragment.this
-                );
+                hideKeyboard(view);
+                fDiaGrupo.setText(String.valueOf(get_number_day(diaGrupo.getSelectedItem().toString())));
 
-                if (getServerError() == null) {
-//                    communicator.getGrupo(ID_MIEMBRO);
+                int Errors = 0;
+
+                for (EditText field: form) {
+                    if (!prevent_set_empty_data(field)) {
+                        Errors++;
+                    }
+                }
+
+                if (Errors == 0) {
+                    ApiAdapter.getApiService().editar_grupo(
+                            ID_MIEMBRO, fDiaGrupo.getText().toString(), fHoraGrupo.getEditText().getText().toString(),
+                            fDireccionGrupo.getEditText().getText().toString(), GrupoFragment.this
+                    );
                     button2.performClick();
-                }
-                button.setImageResource(R.mipmap.ic_create_white_24dp);
-            }
-        });
-
-        button.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                if (!b) {
-                    scrollView.setAlpha(0.2f);
-                    scrollView.animate().alpha(1.0f);
-                    button2.animate().translationY(0.0f);
-                    button2.setVisibility(View.GONE);
-                    button3.animate().translationY(0.0f);
-                    button3.setVisibility(View.GONE);
-                    button.setImageResource(R.mipmap.ic_adjust_white_24dp);
+                    button.setImageResource(R.mipmap.ic_create_white_24dp);
+                    toggleLoading();
                 }
             }
         });
-
+//
+//        button.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View view, boolean b) {
+//                if (!b) {
+//                    scrollView.setAlpha(0.2f);
+//                    scrollView.animate().alpha(1.0f);
+//                    button2.animate().translationY(0.0f);
+//                    button2.setVisibility(View.GONE);
+//                    button3.animate().translationY(0.0f);
+//                    button3.setVisibility(View.GONE);
+//                    button.setImageResource(R.mipmap.ic_adjust_white_24dp);
+//                }
+//            }
+//        });
+//
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                hideKeyboard(view);
                 if (button2.getVisibility() == View.GONE) {
-                    if (direccion_grupo_post.getVisibility() == View.GONE) {
-//                        button.setBackgroundResource(R.mipmap.ic_adjust_white_24dp);
-                        button.setImageResource(R.mipmap.ic_adjust_white_24dp);
+                    if (fDireccionGrupo.getVisibility() == View.GONE) {
+                        button.setImageResource(R.mipmap.ic_apps_white_24dp);
 
-                        toggleView(direccion);
-                        direccion_grupo_post.setText(direccion.getText());
-                        toggleView(direccion_grupo_post);
+                        toggleView(nDireccionGrupo);
+                        if (fDireccionGrupo.getEditText() != null) {
+                            fDireccionGrupo.getEditText().setText(nDireccionGrupo.getText().toString());
+                        }
+                        toggleView(fDireccionGrupo);
+
                         toggleView(diaGrupo);
-                        toggleView(diaGrupoText);
-                        diaGrupo.setSelection(get_number_day(diaGrupoText.getText().toString()));
-                        toggleView(hora);
-                        hora_grupo_post.setText(hora.getText());
-                        toggleView(hora_grupo_post);
+                        toggleView(nDiasGrupo);
+                        toggleView(lDireccionGrupo);
+                        diaGrupo.setSelection(get_number_day(nDiasGrupo.getText().toString()));
+
+                        toggleView(nHora);
+                        if (fHoraGrupo.getEditText() != null) {
+                            fHoraGrupo.getEditText().setText(nHora.getText().toString());
+                        }
+                        toggleView(fHoraGrupo);
+                        toggleView(lHoraGrupo);
                     } else {
                         scrollView.setAlpha(1.0f);
                         scrollView.animate().alpha(0.2f);
@@ -193,24 +265,6 @@ public class GrupoFragment extends Fragment implements AdapterView.OnItemSelecte
         });
 
         return v;
-    }
-
-    public void setServerResponse (ServerResponse serverResponse) {
-//        nombre_grupo.setText(serverResponse.getGrupo_nombre());
-//        direccion_barra.setText(serverResponse.getDireccion_grupo());
-//        lideres_grupo.setText(serverResponse.getGrupo_lider1() + " - " + serverResponse.getGrupo_lider2());
-//        direccion.setText(serverResponse.getDireccion_grupo());
-//        diaGrupoText.setText(get_week_day(Integer.parseInt(serverResponse.getDia_grupo())));
-//        hora.setText(serverResponse.getHora_grupo());
-//        estado.setText(serverResponse.getEstado_grupo());
-    }
-
-    public void setServerError(ErrorEvent serverError) {
-        this.serverError = serverError;
-    }
-
-    public ErrorEvent getServerError() {
-        return serverError;
     }
 
     @Override
@@ -262,9 +316,6 @@ public class GrupoFragment extends Fragment implements AdapterView.OnItemSelecte
         return -1;
     }
 
-//    private void editarGrupoPost(int id, String direccion, String dia, String hora) {
-//        communicator.editarGrupoPost(id, direccion, dia, hora);
-//    };
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -286,22 +337,96 @@ public class GrupoFragment extends Fragment implements AdapterView.OnItemSelecte
     public void onResume() {
         super.onResume();
         ApiAdapter.getApiService().get_grupo(ID_MIEMBRO, this);
+        toggleLoading();
     }
 
     @Override
     public void success(GrupoResponse serverResponse, Response response) {
-        nombre_grupo.setText(serverResponse.getNombre());
-        direccion_barra.setText(serverResponse.getDireccion());
-        lideres_grupo.setText(serverResponse.getLider1() + " - " + serverResponse.getLider2());
-        direccion.setText(serverResponse.getDireccion());
-        diaGrupoText.setText(get_week_day(Integer.parseInt(serverResponse.getDia_grupo())));
-        hora.setText(serverResponse.getHora_grupo());
-        estado.setText(serverResponse.getEstado());
+        if (serverResponse.getResponse_code() == Constants.SUCCESS || serverResponse.getResponse_code() == Constants.CREATED) {
+            if (validate_data_string(serverResponse.getNombre())) {
+                nNombreGrupo.setText(serverResponse.getNombre());
+            } else {
+                nNombreGrupo.setText(Constants.SIN_DATOS);
+            }
+
+            if (validate_data_string(serverResponse.getDireccion())) {
+                nDireccionGrupoBarra.setText(serverResponse.getDireccion());
+                nDireccionGrupo.setText(serverResponse.getDireccion());
+            } else {
+                nDireccionGrupoBarra.setText(Constants.SIN_DATOS);
+                nDireccionGrupo.setText(Constants.SIN_DATOS);
+            }
+
+            String concatena;
+            if (validate_data_string(serverResponse.getLider1())) {
+                concatena = serverResponse.getLider1();
+            } else {
+                concatena = Constants.SIN_DATOS;
+            }
+
+            if (!concatena.equals(Constants.SIN_DATOS)) {
+                if (validate_data_string(serverResponse.getLider2())) {
+                    concatena = concatena + " y " + serverResponse.getLider2();
+                }
+            }
+
+            nLideres.setText(concatena);
+
+            if (validate_data_string(serverResponse.getDia_grupo())) {
+                nDiasGrupo.setText(get_week_day(Integer.parseInt(serverResponse.getDia_grupo())));
+            } else {
+                nDiasGrupo.setText(Constants.SIN_DATOS);
+            }
+
+            if (validate_data_string(serverResponse.getHora_grupo())) {
+                nHora.setText(serverResponse.getHora_grupo());
+            } else {
+                nHora.setText(Constants.SIN_DATOS);
+            }
+
+            if (validate_data_string(serverResponse.getEstado())) {
+                nEstado.setText(serverResponse.getEstado());
+            } else {
+                nEstado.setText(Constants.SIN_DATOS);
+            }
+        } else if (serverResponse.getResponse_code() == Constants.DENIED || serverResponse.getResponse_code() == Constants.ERROR || serverResponse.getResponse_code() == Constants.NOT_FOUND){
+            Toast.makeText(getActivity(), serverResponse.getMessage(), Toast.LENGTH_LONG).show();
+        }
+        toggleLoading();
     }
 
     @Override
     public void failure(RetrofitError error) {
         Log.d("F", "Error desde el grupoFragment");
         error.printStackTrace();
+    }
+
+    public void toggleLoading() {
+        if (progressBar != null && scrollView != null) {
+            toggleView(progressBar);
+            toggleView(scrollView);
+        }
+    }
+
+    public boolean validate_data_string(String data) {
+        return data != null && !data.isEmpty();
+    }
+
+    public boolean prevent_set_empty_data(EditText editText) {
+        if (editText != null) {
+            if (editText.getText().toString().isEmpty()) {
+                if (editText.getParent() instanceof TextInputLayout) {
+                    ((TextInputLayout) editText.getParent()).setError("Este Campo no puede estar vacio");
+                }
+                return false;
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public void hideKeyboard(View view) {
+        InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 }
