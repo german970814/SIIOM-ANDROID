@@ -97,15 +97,15 @@ public class DiscipulosFragment extends Fragment implements Callback<DiscipulosR
         mDiscipulosList.addItemDecoration(new ItemOffsetDecoration(getActivity(), R.integer.offset));
     }
 
-    private void setDummyContent () {
-        ArrayList<Discipulo> discipulos = new ArrayList<>();
-
-        for (int i = 0; i < 12; i++) {
-            discipulos.add(new Discipulo("Discipulo " + i, "Discipulo " + i));
-        }
-
-        adapter.addAll(discipulos);
-    }
+//    private void setDummyContent () {
+//        ArrayList<Discipulo> discipulos = new ArrayList<>();
+//
+//        for (int i = 0; i < 12; i++) {
+//            discipulos.add(new Discipulo("Discipulo " + i, "Discipulo " + i));
+//        }
+//
+//        adapter.addAll(discipulos);
+//    }
 
     @Override
     public void success(DiscipulosResponse discipulosResponse, Response response) {

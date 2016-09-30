@@ -12,6 +12,7 @@ import retrofit.http.FormUrlEncoded;
 import retrofit.http.GET;
 import retrofit.http.POST;
 import retrofit.http.Path;
+import retrofit.http.Query;
 
 /**
  * Created by german on 13/09/16.
@@ -23,6 +24,9 @@ public interface ServiceAPI {
 
     @GET(Constants.API_PATH + "/miembro/{id_miembro}/")
     void get_miembro(@Path("id_miembro") int id_miembro, Callback<MiembroResponse> serverResponse);
+
+    @GET(Constants.API_PATH + "/miembro/{id_miembro}/")
+    void get_miembro_discipulo(@Path("id_miembro") int id_miembro, @Query("_discipulo") String _discipulo, Callback<MiembroResponse> serverResponse);
 
     @FormUrlEncoded
     @POST(Constants.API_PATH + "/editar_miembro/{id_miembro}/")

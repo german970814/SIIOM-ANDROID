@@ -1,7 +1,9 @@
 package com.ingeniartesoft.siiom.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.ingeniartesoft.siiom.DiscipuloDetailActivity;
 import com.ingeniartesoft.siiom.R;
 import com.ingeniartesoft.siiom.models.Discipulo;
 import com.ingeniartesoft.siiom.ui.Constants;
@@ -40,10 +43,21 @@ public class DiscipulosAdapter extends RecyclerView.Adapter<DiscipulosAdapter.Di
 
     @Override
     public void onBindViewHolder(DiscipulosViewHolder holder, int position) {
-        Discipulo currentDiscipulo = discipulos.get(position);
+        final Discipulo currentDiscipulo = discipulos.get(position);
 
         holder.setNombre_discipulo(currentDiscipulo.getNombre());
         holder.setImagen_discipulo(currentDiscipulo.getImagen());
+
+        // es mejor poner los eventos aqui, ya que solo hay un discipulo
+        holder.imagen_discipulo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, DiscipuloDetailActivity.class);
+                intent.putExtra("DISCIPULO_ID", currentDiscipulo.getId());
+                context.startActivity(intent);
+            }
+        });
+
     }
 
     @Override
@@ -54,6 +68,9 @@ public class DiscipulosAdapter extends RecyclerView.Adapter<DiscipulosAdapter.Di
     public void addAll(@NonNull ArrayList<Discipulo> discipulos) {
         if (discipulos == null) {
             throw new NullPointerException("The items cannot be null");
+        }
+        if (this.discipulos.size() > 0) {
+            this.discipulos.clear();
         }
         this.discipulos.addAll(discipulos);
         if (this._discipulos.isEmpty()) {

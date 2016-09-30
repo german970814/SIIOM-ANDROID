@@ -22,6 +22,14 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" />
+        <activity
+            android:name=".DiscipuloDetailActivity"
+            android:parentActivityName=".MainActivity"
+            >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
     </application>
 
 </manifest>
